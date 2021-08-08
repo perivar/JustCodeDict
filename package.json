@@ -15,14 +15,14 @@
     "react-native-sound": "^0.11.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
+    "@babel/core": "^7.15.0",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^3.0.0",
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.64.5",
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^27.0.6",
-    "eslint": "^7.14.0",
+    "eslint": "^7.32.0",
     "jest": "^27.0.6",
     "metro-react-native-babel-preset": "^0.66.2",
     "react-test-renderer": "17.0.1",

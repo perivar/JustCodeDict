@@ -11,9 +11,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		770822743AA912AAD31BCA20 /* libPods-JustCodeDict.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CDD43B09476E395747FF14 /* libPods-JustCodeDict.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		D138E87E7279A8C1B6FF39A7 /* libPods-JustCodeDict-JustCodeDictTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EEA71AD876F9DD759AF23F1 /* libPods-JustCodeDict-JustCodeDictTests.a */; };
+		954D92C58BB1AAA4ABD76850 /* libPods-JustCodeDict-JustCodeDictTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 767CEA7E3C63C42C629CD480 /* libPods-JustCodeDict-JustCodeDictTests.a */; };
+		D7FC70E365E0184CF51B7AF2 /* libPods-JustCodeDict.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B4BD60D1E1509ABBBB14DA /* libPods-JustCodeDict.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,19 +30,19 @@
 		00E356EE1AD99517003FC87E /* JustCodeDictTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustCodeDictTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* JustCodeDictTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JustCodeDictTests.m; sourceTree = "<group>"; };
+		06B4BD60D1E1509ABBBB14DA /* libPods-JustCodeDict.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JustCodeDict.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* JustCodeDict.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustCodeDict.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = JustCodeDict/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = JustCodeDict/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = JustCodeDict/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = JustCodeDict/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = JustCodeDict/main.m; sourceTree = "<group>"; };
-		1A59E08790A366D462562F1E /* Pods-JustCodeDict.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict.release.xcconfig"; path = "Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict.release.xcconfig"; sourceTree = "<group>"; };
-		44CDD43B09476E395747FF14 /* libPods-JustCodeDict.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JustCodeDict.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		51097087F37DF1DDE3232BF0 /* Pods-JustCodeDict.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict.debug.xcconfig"; path = "Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict.debug.xcconfig"; sourceTree = "<group>"; };
-		7232D5302B7B53C860D9970E /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict-JustCodeDictTests.release.xcconfig"; path = "Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests.release.xcconfig"; sourceTree = "<group>"; };
-		7539B61315DBAE57D0CEFFA8 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig"; path = "Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig"; sourceTree = "<group>"; };
+		16862B057128132534CBD3E0 /* Pods-JustCodeDict.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict.debug.xcconfig"; path = "Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict.debug.xcconfig"; sourceTree = "<group>"; };
+		67AB5260BBAF04174A3334B3 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig"; path = "Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig"; sourceTree = "<group>"; };
+		767CEA7E3C63C42C629CD480 /* libPods-JustCodeDict-JustCodeDictTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JustCodeDict-JustCodeDictTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = JustCodeDict/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8EEA71AD876F9DD759AF23F1 /* libPods-JustCodeDict-JustCodeDictTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JustCodeDict-JustCodeDictTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B820FBCA72C2947D295E5071 /* Pods-JustCodeDict.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict.release.xcconfig"; path = "Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict.release.xcconfig"; sourceTree = "<group>"; };
+		BF7276B90D68A8C9B8166A7A /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict-JustCodeDictTests.release.xcconfig"; path = "Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D138E87E7279A8C1B6FF39A7 /* libPods-JustCodeDict-JustCodeDictTests.a in Frameworks */,
+				954D92C58BB1AAA4ABD76850 /* libPods-JustCodeDict-JustCodeDictTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				770822743AA912AAD31BCA20 /* libPods-JustCodeDict.a in Frameworks */,
+				D7FC70E365E0184CF51B7AF2 /* libPods-JustCodeDict.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				44CDD43B09476E395747FF14 /* libPods-JustCodeDict.a */,
-				8EEA71AD876F9DD759AF23F1 /* libPods-JustCodeDict-JustCodeDictTests.a */,
+				06B4BD60D1E1509ABBBB14DA /* libPods-JustCodeDict.a */,
+				767CEA7E3C63C42C629CD480 /* libPods-JustCodeDict-JustCodeDictTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -121,7 +121,7 @@
 				00E356EF1AD99517003FC87E /* JustCodeDictTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				DA44C4C1CF728D7799F0EB4F /* Pods */,
+				B5232B87A7090D2CE70536FC /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -137,13 +137,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DA44C4C1CF728D7799F0EB4F /* Pods */ = {
+		B5232B87A7090D2CE70536FC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				51097087F37DF1DDE3232BF0 /* Pods-JustCodeDict.debug.xcconfig */,
-				1A59E08790A366D462562F1E /* Pods-JustCodeDict.release.xcconfig */,
-				7539B61315DBAE57D0CEFFA8 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */,
-				7232D5302B7B53C860D9970E /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */,
+				16862B057128132534CBD3E0 /* Pods-JustCodeDict.debug.xcconfig */,
+				B820FBCA72C2947D295E5071 /* Pods-JustCodeDict.release.xcconfig */,
+				67AB5260BBAF04174A3334B3 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */,
+				BF7276B90D68A8C9B8166A7A /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -156,12 +156,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "JustCodeDictTests" */;
 			buildPhases = (
-				792F203E16614BC7AA287926 /* [CP] Check Pods Manifest.lock */,
+				C1FF3F44170501EA23F85329 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				7BBAD54B686A3BCB472D2822 /* [CP] Embed Pods Frameworks */,
-				344A19E2123FEE12E9C21E44 /* [CP] Copy Pods Resources */,
+				156BE36AEBC707DB5862616B /* [CP] Embed Pods Frameworks */,
+				93116E46CA9732F0E4968C66 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -177,14 +177,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "JustCodeDict" */;
 			buildPhases = (
-				AC51B8C249968BC1C696A941 /* [CP] Check Pods Manifest.lock */,
+				C80C054C9C9040F3F58ACAEF /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				BD9176CAD350BC600AA430EF /* [CP] Embed Pods Frameworks */,
-				E875B5CB944127693D83D640 /* [CP] Copy Pods Resources */,
+				5A86C1151EE76049887D0355 /* [CP] Embed Pods Frameworks */,
+				D3BFA4ADCC9719A0C3129337 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -265,7 +265,41 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		344A19E2123FEE12E9C21E44 /* [CP] Copy Pods Resources */ = {
+		156BE36AEBC707DB5862616B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5A86C1151EE76049887D0355 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		93116E46CA9732F0E4968C66 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -282,7 +316,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		792F203E16614BC7AA287926 /* [CP] Check Pods Manifest.lock */ = {
+		C1FF3F44170501EA23F85329 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -304,24 +338,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7BBAD54B686A3BCB472D2822 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AC51B8C249968BC1C696A941 /* [CP] Check Pods Manifest.lock */ = {
+		C80C054C9C9040F3F58ACAEF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -343,24 +360,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BD9176CAD350BC600AA430EF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E875B5CB944127693D83D640 /* [CP] Copy Pods Resources */ = {
+		D3BFA4ADCC9719A0C3129337 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -429,7 +429,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7539B61315DBAE57D0CEFFA8 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */;
+			baseConfigurationReference = 67AB5260BBAF04174A3334B3 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -456,7 +456,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7232D5302B7B53C860D9970E /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */;
+			baseConfigurationReference = BF7276B90D68A8C9B8166A7A /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -480,7 +480,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51097087F37DF1DDE3232BF0 /* Pods-JustCodeDict.debug.xcconfig */;
+			baseConfigurationReference = 16862B057128132534CBD3E0 /* Pods-JustCodeDict.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -506,7 +506,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A59E08790A366D462562F1E /* Pods-JustCodeDict.release.xcconfig */;
+			baseConfigurationReference = B820FBCA72C2947D295E5071 /* Pods-JustCodeDict.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
