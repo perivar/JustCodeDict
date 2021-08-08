@@ -9,17 +9,20 @@ import {
 import PropTypes from 'prop-types';
 import Helper from '../../lib/helper';
 import Sound from 'react-native-sound';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface WordProps {
   def: any;
+  hideFav?: boolean;
 }
 let WordDefinition: FunctionComponent<WordProps>;
 
-export default WordDefinition = ({ def }) => {
+export default WordDefinition = ({ def, hideFav }) => {
   const [loadingMp3, setLoadingMp3] = useState(false);
+  const [isFav, setIsFav] = useState(false);
 
   let word = Helper.carefullyGetValue(def, ['word']);
-
+  let orgWord = word;
   if (word.length > 0) {
     word = Helper.capitalize(word);
     word = '[' + word + ']';
@@ -42,6 +45,14 @@ export default WordDefinition = ({ def }) => {
     'audioFile',
   ]);
 
+  Helper.isFav(orgWord)
+    .then(result => {
+      setIsFav(result);
+    })
+    .catch(err => {
+      setIsFav(false);
+    });
+
   return (
     <>
       {def && (
@@ -62,6 +73,29 @@ export default WordDefinition = ({ def }) => {
                     <Text style={styles.speaker}>{'🔈'}</Text>
                   </TouchableOpacity>
                 )}
+              </View>
+            )}
+            {!hideFav && (
+              <View
+                style={{ flex: 1, alignItems: 'flex-end', paddingRight: 20 }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    if (!isFav) {
+                      // If not fav, make it as fav
+                      Helper.makeFav(orgWord, Helper.getSense(def));
+                      setIsFav(true); // Update the isFav state to true
+                    } else {
+                      // If already fav, remove it.
+                      Helper.deleteFav(orgWord);
+                      setIsFav(false); // Update the isFav state to false
+                    }
+                  }}>
+                  <Icon
+                    name={isFav ? 'ios-heart' : 'ios-heart-outline'}
+                    size={26}
+                    color={isFav ? 'red' : 'gray'}
+                  />
+                </TouchableOpacity>
               </View>
             )}
           </View>
