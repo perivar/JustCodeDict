@@ -15,7 +15,6 @@ const commonStyles = StyleSheet.create({
   content: {
     margin: 6,
     padding: 6,
-    // backgroundColor: '#ffffff',
   },
   header: {
     alignItems: 'center',
@@ -56,6 +55,12 @@ const commonStyles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 50,
     backgroundColor: 'white',
+    overflow: 'hidden',
+  },
+  profileCamera: {
+    position: 'absolute',
+    bottom: -10,
+    right: -10,
   },
 });
 

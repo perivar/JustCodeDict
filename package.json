@@ -8,9 +8,9 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lintFix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "lint-fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --check ./src",
-    "formatFix": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+    "format-fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
@@ -22,6 +22,8 @@
     "moment": "^2.29.1",
     "react": "17.0.1",
     "react-native": "0.64.2",
+    "react-native-camera": "^4.0.1",
+    "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-reanimated": "^2.2.0",
     "react-native-safe-area-context": "^3.3.0",

@@ -16,6 +16,8 @@ import {
   TextInput,
   Button,
   ActivityIndicator,
+  TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -24,6 +26,11 @@ import Helper from '../../lib/helper';
 import WordDefinition from '../../components/wordDef';
 import Header from '../../components/header';
 import commonStyles from '../../../commonStyles';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+// 20200502 JustCode: Import the camera module
+import Camera, { Constants } from '../../components/camera';
+import WordSelector from '../../components/wordSelector';
 
 interface ISearchProps {
   navigation: any;
@@ -34,16 +41,24 @@ interface ISearchState {
   errorMsg: string;
   loading: boolean;
   definition: any;
+  showCamera: boolean;
+  showWordList: boolean;
+  recognizedText: any;
 }
 
 class Search extends React.Component<ISearchProps, ISearchState> {
   constructor(props: ISearchProps) {
     super(props);
+    // 20200502 JustCode:
+    // Add in showCamera, showWordList and recognizedText state
     this.state = {
       userWord: '',
       errorMsg: '',
       loading: false,
       definition: null,
+      showCamera: false,
+      showWordList: false,
+      recognizedText: null,
     };
   }
 
@@ -118,6 +133,28 @@ class Search extends React.Component<ISearchProps, ISearchState> {
     }
   }
 
+  // 20200502 JustCode:
+  // Receive the recognizedText from the Camera module
+  onOCRCapture(recognizedText: string) {
+    console.log('onCapture', recognizedText);
+    this.setState({
+      showCamera: false,
+      showWordList: Helper.isNotNullAndUndefined(recognizedText),
+      recognizedText: recognizedText,
+    });
+  }
+
+  // 20200502 JustCode:
+  // Receive the word selected by the user via WordSelector component
+  onWordSelected(word: string) {
+    this.setState({ showWordList: false, userWord: word });
+    if (word.length > 0) {
+      setTimeout(() => {
+        this.onSearch();
+      }, 500);
+    }
+  }
+
   render() {
     return (
       <>
@@ -138,18 +175,26 @@ class Search extends React.Component<ISearchProps, ISearchState> {
               </Text>
             </View>
 
-            <TextInput
-              style={{
-                height: 40,
-                borderColor: 'gray',
-                borderWidth: 1,
-                paddingLeft: 4,
-                paddingRight: 4,
-              }}
-              onChangeText={text => this.onUserWordChange(text)}
-              placeholder={'Key in the word to search'}
-              value={this.state.userWord}
-            />
+            {/*
+              20200430 - JustCode:
+                Add camera button to allow user to use camera to capture word. Both the
+                TextInput & TouchableOpacity will be wrapped with a new View.
+            */}
+            <View style={styles.searchBox}>
+              <TextInput
+                style={styles.searchInput}
+                onChangeText={text => this.onUserWordChange(text)}
+                placeholder={'Key in the word to search'}
+                value={this.state.userWord}
+              />
+              <TouchableOpacity
+                style={styles.searchCamera}
+                onPress={() => {
+                  this.setState({ showCamera: true });
+                }}>
+                <Icon name="ios-camera" size={25} color="#22222288" />
+              </TouchableOpacity>
+            </View>
 
             <View style={{ minHeight: 10, maxHeight: 10 }}></View>
 
@@ -163,6 +208,38 @@ class Search extends React.Component<ISearchProps, ISearchState> {
             <WordDefinition def={this.state.definition} />
           </ScrollView>
         </SafeAreaView>
+        {
+          // 20200502 - JustCode:
+          // Display the camera to capture text
+          this.state.showCamera && (
+            <Camera
+              cameraType={Constants.Type.back}
+              flashMode={Constants.FlashMode.off}
+              autoFocus={Constants.AutoFocus.on}
+              whiteBalance={Constants.WhiteBalance.auto}
+              ratio={'4:3'}
+              quality={0.5}
+              imageWidth={800}
+              enabledOCR={true}
+              onCapture={(data: any, recognizedText: any) =>
+                this.onOCRCapture(recognizedText)
+              }
+              onClose={() => {
+                this.setState({ showCamera: false });
+              }}
+            />
+          )
+        }
+        {
+          // 20200502 - JustCode:
+          // Display the word list capture by the camera and allow user to select
+          this.state.showWordList && (
+            <WordSelector
+              wordBlock={this.state.recognizedText}
+              onWordSelected={(word: any) => this.onWordSelected(word)}
+            />
+          )
+        }
         {this.state.loading && (
           <ActivityIndicator
             style={commonStyles.loading}
@@ -179,3 +256,29 @@ export default (props: ISearchProps) => {
   const navigation = useNavigation();
   return <Search {...props} navigation={navigation} />;
 };
+
+const styles = StyleSheet.create({
+  searchBox: {
+    flex: 1,
+    flexDirection: 'row',
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingLeft: 4,
+    paddingRight: 4,
+    paddingTop: 2,
+    paddingBottom: 2,
+  },
+  searchInput: {
+    padding: 0,
+    flex: 1,
+  },
+  // 20200502 - JustCode:
+  // Camera icon style
+  searchCamera: {
+    maxWidth: 50,
+    marginLeft: 5,
+    padding: 0,
+    alignSelf: 'center',
+  },
+});

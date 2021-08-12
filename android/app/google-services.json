@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "904088346251",
+    "project_id": "justcodedict-33d0e",
+    "storage_bucket": "justcodedict-33d0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904088346251:android:ed278b45eac74d441cfe8e",
+        "android_client_info": {
+          "package_name": "com.justcodedict"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904088346251-psp0ib3mq9m4k3e34v4jkrmgdkbdn5gu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZVuFfnFUMFdNYmxYeCSu7q0z-FJ4c-B4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904088346251-psp0ib3mq9m4k3e34v4jkrmgdkbdn5gu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "904088346251-8a3bk6c1rpc6dq3jh34g2c8n37u39dti.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.JustCodeDict"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
