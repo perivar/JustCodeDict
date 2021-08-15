@@ -83,10 +83,7 @@ export default class Helper {
         favList = favList.concat(existingFav);
       }
 
-      const result = await AsyncStorage.setItem(
-        'myFav',
-        JSON.stringify(favList)
-      );
+      await AsyncStorage.setItem('myFav', JSON.stringify(favList));
     } catch (error) {
       // ignore catch
     }
@@ -109,10 +106,7 @@ export default class Helper {
           const index = favList.indexOf(isExist[0]);
           if (index > -1) {
             favList.splice(index, 1);
-            const result = await AsyncStorage.setItem(
-              'myFav',
-              JSON.stringify(favList)
-            );
+            await AsyncStorage.setItem('myFav', JSON.stringify(favList));
             if (callback) callback();
           }
         }
@@ -183,5 +177,24 @@ export default class Helper {
     }
 
     return defSense;
+  }
+
+  // 20200529 JustCode:
+  // Get user language setting from AsyncStorage
+  static async getDeviceLanguageFromStorage() {
+    try {
+      let lang = await AsyncStorage.getItem('lang');
+      if (lang && lang.length > 0) return lang;
+      else return 'en'; // No language setting, default it to english
+    } catch (error) {
+      // Can't get the language setting, default it to english
+      return 'en';
+    }
+  }
+
+  static updateDeviceLanguageToStorage(lang: string) {
+    try {
+      AsyncStorage.setItem('lang', lang);
+    } catch (error) {}
   }
 }

@@ -9,10 +9,16 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
+// 20200529 JustCode: Import the LocalizedStrings module and the locale text file
+import LocalizedStrings from 'react-native-localization';
+import localeFile from './locale.json';
+let localizedStrings = new LocalizedStrings(localeFile);
+
 interface IWordSelectorProps {
   wordBlock: any;
   onWordSelected: any;
   style?: any;
+  lang: any;
 }
 
 interface IWordSelectorState {
@@ -27,11 +33,13 @@ export default class WordSelector extends Component<
   static propTypes: IWordSelectorProps = {
     wordBlock: PropTypes.object,
     onWordSelected: PropTypes.func,
+    lang: PropTypes.string, // 20200529 JustCode - Add in lang props
   };
 
   static defaultProps: IWordSelectorProps = {
     wordBlock: null,
     onWordSelected: null,
+    lang: 'en', // 20200529 JustCode - Set en as default lang
   };
 
   state: IWordSelectorState = {
@@ -78,7 +86,7 @@ export default class WordSelector extends Component<
               this.setState({ selectedWordIdx: idx });
             }}
             style={
-              this.state.selectedWordIdx == idx
+              this.state.selectedWordIdx === idx
                 ? styles.selectedWord
                 : styles.nonSelectedWord
             }>
@@ -92,18 +100,21 @@ export default class WordSelector extends Component<
   }
 
   render() {
+    // 20200529 JustCode: Set the language pass in via props
+    localizedStrings.setLanguage(this.props.lang);
+
     return (
       <View style={[styles.container, this.props.style]}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>
-            Please select a word below and click on the Ok button.
-          </Text>
+          {/* 20200529 JustCode - Change the hard coded string to localized string */}
+          <Text style={styles.headerText}>{localizedStrings.Prompt}</Text>
         </View>
         <ScrollView>
           <View style={styles.wordList}>{this.populateWords()}</View>
         </ScrollView>
+        {/* 20200529 JustCode - Change the hard coded string to localized string */}
         <Button
-          title="OK"
+          title={localizedStrings.BtnOK}
           disabled={
             !(
               this.state.selectedWordIdx >= 0 &&
@@ -160,9 +171,5 @@ const styles = StyleSheet.create({
   word: {
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  okButton: {
-    marginBottom: 50,
-    fontSize: 30,
   },
 });

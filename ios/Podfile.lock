@@ -467,6 +467,8 @@ PODS:
     - React-cxxreact (= 0.64.2)
     - React-jsi (= 0.64.2)
     - React-perflogger (= 0.64.2)
+  - ReactNativeLocalization (2.1.7):
+    - React-Core
   - RNCAsyncStorage (1.12.1):
     - React-Core
   - RNCMaskedView (0.1.11):
@@ -573,6 +575,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - ReactNativeLocalization (from `../node_modules/react-native-localization`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNFS (from `../node_modules/react-native-fs`)
@@ -678,6 +681,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  ReactNativeLocalization:
+    :path: "../node_modules/react-native-localization"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
   RNCMaskedView:
@@ -717,7 +722,7 @@ SPEC CHECKSUMS:
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   Flipper-RSocket: d9d9ade67cbecf6ac10730304bf5607266dd2541
   FlipperKit: d47b7085a3b52e4d8de14a1e42a5c21b9f2b70f4
-  glog: 7a8788d88d2a384c05df45e95c5e763e4d81f3ad
+  glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   GoogleAppMeasurement: 8d10c1c470fcb0e5143ed74fddd164f0a0384800
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleMLKit: 85ffdc9641d05311c76dbba5bbf93059087be12f
@@ -734,7 +739,7 @@ SPEC CHECKSUMS:
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Protobuf: 7327d4444215b5f18e560a97f879ff5503c4581c
-  RCT-Folly: 1af344185a2506dec1e584dd5edaaa8fb6bcda5e
+  RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: 6d3e854f0e7260a648badd0d44fc364bc9da9728
   RCTTypeSafety: c1f31d19349c6b53085766359caac425926fafaa
   React: bda6b6d7ae912de97d7a61aa5c160db24aa2ad69
@@ -759,6 +764,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 24600e3b1aaa77126989bc58b6747509a1ba14f3
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
   ReactCommon: 149906e01aa51142707a10665185db879898e966
+  ReactNativeLocalization: 90a1181b7672309701dd7e5364fbf587319d41c6
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32

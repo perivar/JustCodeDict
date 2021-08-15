@@ -49,7 +49,7 @@ export default WordDefinition = ({ def, hideFav }) => {
     .then(result => {
       setIsFav(result);
     })
-    .catch(err => {
+    .catch(() => {
       setIsFav(false);
     });
 

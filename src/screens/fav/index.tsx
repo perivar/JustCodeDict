@@ -28,9 +28,15 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import FavDetail from '../favDetail';
 import Header from '../../components/header';
 
+// 20200529 JustCode: Import the LocalizedStrings module and the locale text file
+import LocalizedStrings from 'react-native-localization';
+import localeFile from './locale.json';
+let localizedStrings = new LocalizedStrings(localeFile);
+
 interface IFavProps {
   isFocused: boolean;
   navigation: any;
+  lang: string;
 }
 
 interface IFavState {
@@ -81,12 +87,15 @@ class Fav extends React.Component<IFavProps, IFavState> {
   }
 
   render() {
+    // 20200529 JustCode: Set the language pass in via props
+    localizedStrings.setLanguage(this.props.lang);
+
     return (
       <>
         <SafeAreaView style={commonStyles.content}>
           <Header
             navigation={this.props.navigation}
-            Title={'My Favourite'}
+            Title={localizedStrings.Title}
             isAtRoot={true}
           />
           <View style={[commonStyles.header]}>
@@ -99,7 +108,7 @@ class Fav extends React.Component<IFavProps, IFavState> {
           <SwipeListView
             data={this.state.favList}
             keyExtractor={(item: any) => item.word}
-            renderItem={(data, rowMap) => (
+            renderItem={data => (
               <TouchableHighlight
                 style={styles.rowFront}
                 key={'Front_' + data.item.word}
@@ -117,9 +126,10 @@ class Fav extends React.Component<IFavProps, IFavState> {
                     <Text style={styles.word}>
                       {Helper.capitalize(data.item.word)}
                     </Text>
+                    {/* 20200529 JustCode - Change the hard coded string to localized string */}
                     <Text style={styles.addedOn}>
-                      Added On:{' '}
-                      {moment(data.item.addedOn).format('DD MMM YYYY h:mm A')}
+                      {localizedStrings.AddedOn +
+                        moment(data.item.addedOn).format('DD MMM YYYY h:mm A')}
                     </Text>
                     <Text style={styles.sense}>
                       {Helper.capitalize(data.item.sense)}
@@ -135,7 +145,7 @@ class Fav extends React.Component<IFavProps, IFavState> {
                 </View>
               </TouchableHighlight>
             )}
-            renderHiddenItem={(data, rowMap) => (
+            renderHiddenItem={data => (
               <View key={'Hidden_' + data.item.word} style={styles.rowBack}>
                 <TouchableOpacity
                   onPress={() => {
@@ -150,7 +160,7 @@ class Fav extends React.Component<IFavProps, IFavState> {
             )}
             ListEmptyComponent={() => (
               <View style={styles.rowEmpty}>
-                {this.state.loaded && <Text>No favourite word.</Text>}
+                {this.state.loaded && <Text>{localizedStrings.NoListing}</Text>}
               </View>
             )}
             leftOpenValue={0}
@@ -241,12 +251,16 @@ export default function (props: IFavProps) {
       <Stack.Screen
         name="Fav"
         options={{ title: 'Word List', headerShown: false }}>
-        {props => <Fav {...props} isFocused={isFocused} />}
+        {/* 20200529 JustCode - Pass the lang props to the child element */}
+        {stackProps => (
+          <Fav {...stackProps} lang={props.lang} isFocused={isFocused} />
+        )}
       </Stack.Screen>
       <Stack.Screen
         name="FavDetail"
         options={{ title: 'Word Definition', headerShown: false }}>
-        {props => <FavDetail {...props} />}
+        {/* 20200529 JustCode - Pass the lang props to the child element */}
+        {stackProps => <FavDetail {...stackProps} lang={props.lang} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

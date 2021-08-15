@@ -9,14 +9,10 @@
 import React from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
   ScrollView,
   View,
   Text,
-  StatusBar,
   Image,
-  TextInput,
-  Button,
   ActivityIndicator,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -26,9 +22,15 @@ import WordDefinition from '../../components/wordDef';
 import commonStyles from '../../../commonStyles';
 import Header from '../../components/header';
 
+// 20200529 JustCode: Import the LocalizedStrings module and the locale text file
+import LocalizedStrings from 'react-native-localization';
+import localeFile from './locale.json';
+let localizedStrings = new LocalizedStrings(localeFile);
+
 interface IFavDetailProps {
   navigation: any;
   route: any;
+  lang: string;
 }
 
 interface IFavDetailState {
@@ -63,16 +65,18 @@ class FavDetail extends React.Component<IFavDetailProps, IFavDetailState> {
           });
           console.log('Word Definition: ', wordDefinition.payload);
         } else {
+          // 20200529 JustCode - Change the hard coded string to localized string
           this.setState({
             errorMsg:
-              'Unable to get result from Oxford: ' + wordDefinition.message,
+              localizedStrings.Error.OxfordIssue + wordDefinition.message,
             loading: false,
             definition: null,
           });
         }
       } else {
+        // 20200529 JustCode - Change the hard coded string to localized string
         this.setState({
-          errorMsg: 'Invalid word. Please specify a valid word.',
+          errorMsg: localizedStrings.Error.InvalidWord,
           loading: false,
           definition: null,
         });
@@ -88,10 +92,17 @@ class FavDetail extends React.Component<IFavDetailProps, IFavDetailState> {
   }
 
   render() {
+    // 20200529 JustCode: Set the language pass in via props
+    localizedStrings.setLanguage(this.props.lang);
+
     return (
       <>
         <SafeAreaView style={commonStyles.content}>
-          <Header navigation={this.props.navigation} Title={'Word Detail'} />
+          {/* 20200529 JustCode - Change the hard coded string to localized string */}
+          <Header
+            navigation={this.props.navigation}
+            Title={localizedStrings.Title}
+          />
           <ScrollView contentInsetAdjustmentBehavior="automatic">
             <View style={[commonStyles.column, commonStyles.header]}>
               <Image

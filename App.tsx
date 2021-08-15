@@ -33,6 +33,13 @@ import commonStyles from './commonStyles';
 import Camera, { Constants } from './src/components/camera';
 import RNFS from 'react-native-fs';
 
+// 20200529 JustCode: Import the LocalizedStrings module and the locale text file
+import Setting from './src/screens/setting';
+import Helper from './src/lib/helper';
+import LocalizedStrings from 'react-native-localization';
+import localeFile from './locale.json';
+let localizedStrings = new LocalizedStrings(localeFile);
+
 const Drawer = createDrawerNavigator();
 
 const DrawerNav = (props: any) => {
@@ -51,16 +58,31 @@ const DrawerNav = (props: any) => {
           />
         )
       }>
+      {/* 20200529 JustCode: Change the hardcoded string to the localized string */}
       <Drawer.Screen
         name="TabNav"
-        component={TabNav}
-        options={{ title: 'Home', headerShown: false }}
-      />
+        // component={TabNav} 20200529 JustCode - Use children element to pass in the TabNav component
+        options={{
+          title: localizedStrings.DrawerNav.Screens.Home,
+          headerShown: false,
+        }}>
+        {/*
+          20200529 JustCode - Pass in the language code via props
+          Use TabNav as children element to pass to the component of
+          Drawer.Screen is to ensure TabNav get to re-render whenever
+          the lang in props changed.
+        */}
+        {() => <TabNav {...props} />}
+      </Drawer.Screen>
       <Drawer.Screen
         name="Profile"
-        component={Profile}
-        options={{ title: 'My Profile', headerShown: false }}
-      />
+        // component={Profile} 20200529 JustCode - Use children element to pass in the Profile component
+        options={{
+          title: localizedStrings.DrawerNav.Screens.MyProfile,
+          headerShown: false,
+        }}>
+        {() => <Profile {...props} />}
+      </Drawer.Screen>
     </Drawer.Navigator>
   );
 };
@@ -90,8 +112,9 @@ const DrawerContent = (props: any) => {
       </View>
       <DrawerContentScrollView {...props}>
         <DrawerItemList activeBackgroundColor={'transparent'} {...props} />
+        {/* 20200529 JustCode: Change the hardcoded string to the localized string */}
         <DrawerItem
-          label="About"
+          label={localizedStrings.DrawerNav.Screens.About}
           onPress={() => Linking.openURL('https://www.justnice.net')}
         />
       </DrawerContentScrollView>
@@ -100,7 +123,7 @@ const DrawerContent = (props: any) => {
 };
 
 const Tab = createBottomTabNavigator();
-const TabNav = () => {
+const TabNav = (props: any) => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -108,9 +131,11 @@ const TabNav = () => {
           let iconName = 'logo-react';
 
           if (route.name === 'Search') {
-            iconName = 'search';
+            iconName = 'ios-search';
           } else if (route.name === 'Fav') {
             iconName = focused ? 'ios-heart' : 'ios-heart-outline';
+          } else if (route.name === 'Setting') {
+            iconName = 'md-settings';
           }
 
           // You can return any component that you like here!
@@ -123,13 +148,30 @@ const TabNav = () => {
         tabBarItemStyle: { height: 60, bottom: 0, paddingBottom: 15 },
         headerShown: false,
       })}>
-      <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="Fav" component={Fav} />
+      <Tab.Screen
+        name="Search"
+        //component={Search} 20200529 JustCode - Use children element to pass in the Search component
+        options={{ title: localizedStrings.TabNav.Tabs.Search }}>
+        {() => <Search {...props} />}
+      </Tab.Screen>
+      <Tab.Screen
+        name="Fav"
+        //component={Fav} 20200529 JustCode - Use children element to pass in the Fav component
+        options={{ title: localizedStrings.TabNav.Tabs.Fav }}>
+        {() => <Fav {...props} />}
+      </Tab.Screen>
+      <Tab.Screen
+        name="Setting"
+        //component={Setting} 20200529 JustCode - Use children element to pass in the Setting component
+        options={{ title: localizedStrings.TabNav.Tabs.Setting }}>
+        {() => <Setting {...props} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 };
 
 interface IAppState {
+  lang: string;
   showCamera: boolean;
   profilePhoto: any;
 }
@@ -138,6 +180,7 @@ class App extends React.Component<{}, IAppState> {
   constructor(props: any) {
     super(props);
     this.state = {
+      lang: 'en', // Set the default lang to en
       showCamera: false, // Hide the camera by default
       profilePhoto: require('./assets/icon.png'), // Set the default profile photo to icon.png
     };
@@ -146,6 +189,15 @@ class App extends React.Component<{}, IAppState> {
   // 20200502 JustCode
   // Create a new constructor to check if there is any profile photo or not.
   componentDidMount() {
+    // 20200529 JustCode - Get the user language setting from storage
+    Helper.getDeviceLanguageFromStorage()
+      .then(lang => {
+        this.setState({ lang: lang });
+      })
+      .catch(() => {
+        this.setState({ lang: 'en' });
+      });
+
     // Check if there is any profile photo or not.
     let path = RNFS.DocumentDirectoryPath + '/profilePic.png';
     RNFS.exists(path)
@@ -181,7 +233,7 @@ class App extends React.Component<{}, IAppState> {
 
     // write the file
     RNFS.writeFile(path, imgData, 'base64')
-      .then(_ => {
+      .then(() => {
         // Update the profilePhoto state so that the profile photo will update
         // to the latest photo
         this.setState({
@@ -195,7 +247,16 @@ class App extends React.Component<{}, IAppState> {
       });
   }
 
+  // 20200529 Just Code
+  // Update the user language
+  updateAppLanguage = (lang: string) => {
+    Helper.updateDeviceLanguageToStorage(lang);
+    this.setState({ lang: lang });
+  };
+
   render() {
+    localizedStrings.setLanguage(this.state.lang);
+
     return (
       <NavigationContainer>
         <StatusBar barStyle="default" backgroundColor="#219bd9" />
@@ -210,6 +271,12 @@ class App extends React.Component<{}, IAppState> {
             this.setState({ showCamera: !this.state.showCamera });
           }}
           profilePhoto={this.state.profilePhoto}
+          // 20200529 JustCode - Pass in the language code
+          lang={this.state.lang}
+          // 20200529 JustCode - Pass updateAppLanguage method to allow
+          // child components to update the App level language state
+          // and save the lang selection into device storage
+          updateAppLanguage={this.updateAppLanguage}
         />
         {/*
           20200501 JustCode:
@@ -228,6 +295,8 @@ class App extends React.Component<{}, IAppState> {
             onClose={() => {
               this.setState({ showCamera: false });
             }}
+            // 20200529 JustCode - Pass in the language code
+            lang={this.state.lang}
           />
         )}
       </NavigationContainer>

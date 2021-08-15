@@ -32,8 +32,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Camera, { Constants } from '../../components/camera';
 import WordSelector from '../../components/wordSelector';
 
+// 20200529 JustCode: Import the LocalizedStrings module and the locale text file
+import LocalizedStrings from 'react-native-localization';
+import localeFile from './locale.json';
+let localizedStrings = new LocalizedStrings(localeFile);
+
 interface ISearchProps {
   navigation: any;
+  lang: any;
 }
 
 interface ISearchState {
@@ -68,7 +74,8 @@ class Search extends React.Component<ISearchProps, ISearchState> {
 
   async onSearch() {
     if (this.state.userWord.length <= 0) {
-      this.setState({ errorMsg: 'Please specify the word to lookup.' });
+      // 20200529 JustCode - Change the hard coded string to localized string
+      this.setState({ errorMsg: localizedStrings.Error.EmptyWord });
       return;
     }
 
@@ -102,23 +109,26 @@ class Search extends React.Component<ISearchProps, ISearchState> {
             });
             console.log('Word Definition: ', wordDefinition.payload);
           } else {
+            // 20200529 JustCode - Change the hard coded string to localized string
             this.setState({
               errorMsg:
-                'Unable to get result from Oxford: ' + wordDefinition.message,
+                localizedStrings.Error.OxfordIssue + wordDefinition.message,
               loading: false,
               definition: null,
             });
           }
         } else {
+          // 20200529 JustCode - Change the hard coded string to localized string
           this.setState({
-            errorMsg: 'Invalid word. Please specify a valid word.',
+            errorMsg: localizedStrings.Error.InvalidWord,
             loading: false,
             definition: null,
           });
         }
       } else {
+        // 20200529 JustCode - Change the hard coded string to localized string
         this.setState({
-          errorMsg: 'Unable to get result from Oxford: ' + lemmas.message,
+          errorMsg: localizedStrings.Error.OxfordIssue + lemmas.message,
           loading: false,
           definition: null,
         });
@@ -156,12 +166,16 @@ class Search extends React.Component<ISearchProps, ISearchState> {
   }
 
   render() {
+    // 20200529 JustCode: Set the language pass in via props
+    localizedStrings.setLanguage(this.props.lang);
+
     return (
       <>
         <SafeAreaView style={commonStyles.content}>
+          {/* 20200529 JustCode - Change the hard coded string to localized string */}
           <Header
             navigation={this.props.navigation}
-            Title={'My Dictionary'}
+            Title={localizedStrings.Title}
             isAtRoot={true}
           />
           <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -170,21 +184,23 @@ class Search extends React.Component<ISearchProps, ISearchState> {
                 style={commonStyles.logo}
                 source={require('../../../assets/icon.png')}
               />
+              {/* 20200529 JustCode - Change the hard coded string to localized string */}
               <Text style={commonStyles.sectionTitle}>
-                Just Code Dictionary
+                {localizedStrings.SubTitle}
               </Text>
             </View>
 
             {/*
-              20200430 - JustCode:
-                Add camera button to allow user to use camera to capture word. Both the
-                TextInput & TouchableOpacity will be wrapped with a new View.
-            */}
+               20200430 - JustCode:
+                 Add camera button to allow user to use camera to capture word. Both the
+                 TextInput & TouchableOpacity will be wrapped with a new View.
+             */}
             <View style={styles.searchBox}>
               <TextInput
                 style={styles.searchInput}
                 onChangeText={text => this.onUserWordChange(text)}
-                placeholder={'Key in the word to search'}
+                // 20200529 JustCode - Change the hard coded string to localized string
+                placeholder={localizedStrings.PlaceHolder}
                 value={this.state.userWord}
               />
               <TouchableOpacity
@@ -198,7 +214,11 @@ class Search extends React.Component<ISearchProps, ISearchState> {
 
             <View style={{ minHeight: 10, maxHeight: 10 }}></View>
 
-            <Button title="Search" onPress={() => this.onSearch()} />
+            <Button
+              // 20200529 JustCode - Change the hard coded string to localized string
+              title={localizedStrings.BtnSearch}
+              onPress={() => this.onSearch()}
+            />
 
             {this.state.errorMsg.length > 0 && (
               <Text style={commonStyles.errMsg}>{this.state.errorMsg}</Text>

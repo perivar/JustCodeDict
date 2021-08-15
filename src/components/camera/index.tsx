@@ -10,6 +10,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import { RNCamera } from 'react-native-camera';
 
+// 20200529 JustCode: Import the LocalizedStrings module and the locale text file
+import LocalizedStrings from 'react-native-localization';
+import localeFile from './locale.json';
+let localizedStrings = new LocalizedStrings(localeFile);
+
 export const Constants = {
   ...RNCamera.Constants,
 };
@@ -26,6 +31,7 @@ interface ICameraProps {
   onCapture: any;
   enabledOCR: any;
   onClose: any;
+  lang: any;
 }
 
 interface ICameraState {
@@ -50,6 +56,7 @@ export default class Camera extends React.Component<
     onCapture: PropTypes.func,
     enabledOCR: PropTypes.bool,
     onClose: PropTypes.func,
+    lang: PropTypes.string, // 20200529 JustCode - Add in lang props
   };
 
   static defaultProps: ICameraProps = {
@@ -64,6 +71,7 @@ export default class Camera extends React.Component<
     onCapture: null,
     enabledOCR: false,
     onClose: null,
+    lang: 'en', // 20200529 JustCode - Set en as default lang
   };
 
   camera: RNCamera = null;
@@ -111,6 +119,9 @@ export default class Camera extends React.Component<
   }
 
   render() {
+    // 20200529 JustCode: Set the language pass in via props
+    localizedStrings.setLanguage(this.props.lang);
+
     return (
       <View style={[styles.camera.container, this.props.style]}>
         <RNCamera
@@ -125,16 +136,18 @@ export default class Camera extends React.Component<
           autoFocus={this.props.autoFocus}
           whiteBalance={this.props.whiteBalance}
           androidCameraPermissionOptions={{
-            title: 'Permission to use camera',
-            message: 'We need your permission to use your camera',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
+            // 20200529 JustCode - Change the hard coded string to localized string
+            title: localizedStrings.Camera.Permission.Title,
+            message: localizedStrings.Camera.Permission.Message,
+            buttonPositive: localizedStrings.Camera.Permission.BtnOK,
+            buttonNegative: localizedStrings.Camera.Permission.BtnCancel,
           }}
           androidRecordAudioPermissionOptions={{
-            title: 'Permission to use audio',
-            message: 'We need your permission to use your audio',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
+            // 20200529 JustCode - Change the hard coded string to localized string
+            title: localizedStrings.Audio.Permission.Title,
+            message: localizedStrings.Audio.Permission.Message,
+            buttonPositive: localizedStrings.Audio.Permission.BtnOK,
+            buttonNegative: localizedStrings.Audio.Permission.BtnCancel,
           }}
           onTextRecognized={
             this.props.enabledOCR
@@ -147,7 +160,7 @@ export default class Camera extends React.Component<
           style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
           <TouchableOpacity
             style={styles.camera.capture}
-            onPress={_ => {
+            onPress={() => {
               switch (this.state.flashMode) {
                 case Constants.FlashMode.off:
                   this.setState({ flashMode: Constants.FlashMode.auto });
@@ -189,7 +202,7 @@ export default class Camera extends React.Component<
             !this.props.enabledOCR ? (
               <TouchableOpacity
                 style={styles.camera.capture}
-                onPress={_ => {
+                onPress={() => {
                   if (this.state.cameraType === Constants.Type.back) {
                     this.setState({ cameraType: Constants.Type.front });
                   } else {
