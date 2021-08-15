@@ -40,71 +40,57 @@ import LocalizedStrings from 'react-native-localization';
 import localeFile from './locale.json';
 let localizedStrings = new LocalizedStrings(localeFile);
 
-const Drawer = createDrawerNavigator();
+// 20200613 JustCode: Redux implementation
+import { connect } from 'react-redux';
+import * as uiActions from './src/redux/actions/uiActions';
 
-const DrawerNav = (props: any) => {
+const Drawer = createDrawerNavigator();
+// 20200613 JustCode: Redux implementation, connect TabNav to Redux
+const DrawerNav = connect<any, any, any>((state: any) => {
+  return {
+    ui: state.ui,
+  };
+})(props => {
   return (
     <Drawer.Navigator
       initialRouteName="TabNav"
-      drawerContent={
-        // 20200501 JustCode:
-        // Pass in the toggleCamera from parent component (App) method to DrawerContent
-        // Add profilePhoto props to hold the profile image
-        drawerProps => (
-          <DrawerContent
-            {...drawerProps}
-            toggleCamera={props.toggleCamera}
-            profilePhoto={props.profilePhoto}
-          />
-        )
-      }>
+      drawerContent={drawerProps => (
+        <DrawerContent {...drawerProps} {...props} />
+      )}>
       {/* 20200529 JustCode: Change the hardcoded string to the localized string */}
       <Drawer.Screen
         name="TabNav"
-        // component={TabNav} 20200529 JustCode - Use children element to pass in the TabNav component
+        component={TabNav}
         options={{
           title: localizedStrings.DrawerNav.Screens.Home,
           headerShown: false,
-        }}>
-        {/*
-          20200529 JustCode - Pass in the language code via props
-          Use TabNav as children element to pass to the component of
-          Drawer.Screen is to ensure TabNav get to re-render whenever
-          the lang in props changed.
-        */}
-        {() => <TabNav {...props} />}
-      </Drawer.Screen>
+        }}
+      />
       <Drawer.Screen
         name="Profile"
-        // component={Profile} 20200529 JustCode - Use children element to pass in the Profile component
+        component={Profile}
         options={{
           title: localizedStrings.DrawerNav.Screens.MyProfile,
           headerShown: false,
-        }}>
-        {() => <Profile {...props} />}
-      </Drawer.Screen>
+        }}
+      />
     </Drawer.Navigator>
   );
-};
+});
 
 const DrawerContent = (props: any) => {
   return (
     <>
       <View style={commonStyles.drawerHeader}>
-        {/*
-          20200430 - JustCode:
-            Add a new Camera icon on top of the profile photo.
-        */}
         <View style={{ width: 100, alignSelf: 'center' }}>
           <Image
-            source={props.profilePhoto}
+            source={props.ui.get('profilePhoto')}
             style={commonStyles.drawerProfilePhoto}
           />
           <TouchableOpacity
             style={commonStyles.profileCamera}
             onPress={() => {
-              // Call the toggleCamera passed by DrawerNav
-              props.toggleCamera && props.toggleCamera();
+              props.dispatch(uiActions.showCamera(!props.ui.get('showCamera')));
             }}>
             <Icon name="ios-camera" size={50} color="#22222288" />
           </TouchableOpacity>
@@ -112,7 +98,6 @@ const DrawerContent = (props: any) => {
       </View>
       <DrawerContentScrollView {...props}>
         <DrawerItemList activeBackgroundColor={'transparent'} {...props} />
-        {/* 20200529 JustCode: Change the hardcoded string to the localized string */}
         <DrawerItem
           label={localizedStrings.DrawerNav.Screens.About}
           onPress={() => Linking.openURL('https://www.justnice.net')}
@@ -123,7 +108,12 @@ const DrawerContent = (props: any) => {
 };
 
 const Tab = createBottomTabNavigator();
-const TabNav = (props: any) => {
+// 20200613 JustCode: Redux implementation, connect TabNav to Redux
+const TabNav = connect((state: any) => {
+  return {
+    ui: state.ui,
+  };
+})((props: any) => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -150,52 +140,39 @@ const TabNav = (props: any) => {
       })}>
       <Tab.Screen
         name="Search"
-        //component={Search} 20200529 JustCode - Use children element to pass in the Search component
-        options={{ title: localizedStrings.TabNav.Tabs.Search }}>
-        {() => <Search {...props} />}
-      </Tab.Screen>
+        component={Search}
+        options={{ title: localizedStrings.TabNav.Tabs.Search }}
+      />
       <Tab.Screen
         name="Fav"
-        //component={Fav} 20200529 JustCode - Use children element to pass in the Fav component
-        options={{ title: localizedStrings.TabNav.Tabs.Fav }}>
-        {() => <Fav {...props} />}
-      </Tab.Screen>
+        component={Fav}
+        options={{ title: localizedStrings.TabNav.Tabs.Fav }}
+      />
       <Tab.Screen
         name="Setting"
-        //component={Setting} 20200529 JustCode - Use children element to pass in the Setting component
-        options={{ title: localizedStrings.TabNav.Tabs.Setting }}>
-        {() => <Setting {...props} />}
-      </Tab.Screen>
+        component={Setting}
+        options={{ title: localizedStrings.TabNav.Tabs.Setting }}
+      />
     </Tab.Navigator>
   );
-};
+});
 
-interface IAppState {
-  lang: string;
-  showCamera: boolean;
-  profilePhoto: any;
+interface IAppProps {
+  dispatch: any;
+  ui: any;
 }
 
-class App extends React.Component<{}, IAppState> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      lang: 'en', // Set the default lang to en
-      showCamera: false, // Hide the camera by default
-      profilePhoto: require('./assets/icon.png'), // Set the default profile photo to icon.png
-    };
-  }
-
+class App extends React.Component<IAppProps> {
   // 20200502 JustCode
   // Create a new constructor to check if there is any profile photo or not.
   componentDidMount() {
     // 20200529 JustCode - Get the user language setting from storage
     Helper.getDeviceLanguageFromStorage()
       .then(lang => {
-        this.setState({ lang: lang });
+        this.props.dispatch(uiActions.setLanguage(lang));
       })
-      .catch(() => {
-        this.setState({ lang: 'en' });
+      .catch(_ => {
+        this.props.dispatch(uiActions.setLanguage('en'));
       });
 
     // Check if there is any profile photo or not.
@@ -207,11 +184,11 @@ class App extends React.Component<{}, IAppState> {
           RNFS.readFile(path, 'base64')
             .then(buffer => {
               console.log('File read.');
-              this.setState({
-                profilePhoto: {
+              this.props.dispatch(
+                uiActions.setProfilePhoto({
                   uri: 'data:image/png;base64,' + buffer,
-                },
-              });
+                })
+              );
             })
             .catch(err => {
               console.log('Unable to read profile photo. ', err);
@@ -224,7 +201,7 @@ class App extends React.Component<{}, IAppState> {
   }
 
   saveProfilePhoto(data: any) {
-    this.setState({ showCamera: false });
+    this.props.dispatch(uiActions.showCamera(false));
 
     let path = RNFS.DocumentDirectoryPath + '/profilePic.png';
 
@@ -236,53 +213,25 @@ class App extends React.Component<{}, IAppState> {
       .then(() => {
         // Update the profilePhoto state so that the profile photo will update
         // to the latest photo
-        this.setState({
-          profilePhoto: {
+        this.props.dispatch(
+          uiActions.setProfilePhoto({
             uri: 'data:image/png;base64,' + imgData,
-          },
-        });
+          })
+        );
       })
       .catch(err => {
         console.log(err.message);
       });
   }
 
-  // 20200529 Just Code
-  // Update the user language
-  updateAppLanguage = (lang: string) => {
-    Helper.updateDeviceLanguageToStorage(lang);
-    this.setState({ lang: lang });
-  };
-
   render() {
-    localizedStrings.setLanguage(this.state.lang);
+    localizedStrings.setLanguage(this.props.ui.get('lang'));
 
     return (
       <NavigationContainer>
         <StatusBar barStyle="default" backgroundColor="#219bd9" />
-        {/*
-          20200501 JustCode:
-          Define a method called toggleCamera in the props of DrawerNav.
-          Define a profilePhoto prop to hold the user profile photo.
-        */}
-        <DrawerNav
-          {...this.props}
-          toggleCamera={() => {
-            this.setState({ showCamera: !this.state.showCamera });
-          }}
-          profilePhoto={this.state.profilePhoto}
-          // 20200529 JustCode - Pass in the language code
-          lang={this.state.lang}
-          // 20200529 JustCode - Pass updateAppLanguage method to allow
-          // child components to update the App level language state
-          // and save the lang selection into device storage
-          updateAppLanguage={this.updateAppLanguage}
-        />
-        {/*
-          20200501 JustCode:
-          Show the camera when user click on the camera button.
-        */}
-        {this.state.showCamera && (
+        <DrawerNav {...this.props} />
+        {this.props.ui.get('showCamera') && (
           <Camera
             cameraType={Constants.Type.front}
             flashMode={Constants.FlashMode.off}
@@ -293,10 +242,10 @@ class App extends React.Component<{}, IAppState> {
             imageWidth={800}
             onCapture={(data: any) => this.saveProfilePhoto(data)}
             onClose={() => {
-              this.setState({ showCamera: false });
+              this.props.dispatch(
+                uiActions.showCamera(!this.props.ui.get('showCamera'))
+              );
             }}
-            // 20200529 JustCode - Pass in the language code
-            lang={this.state.lang}
           />
         )}
       </NavigationContainer>
@@ -304,4 +253,9 @@ class App extends React.Component<{}, IAppState> {
   }
 }
 
-export default App;
+// Connect App to Redux state
+export default connect((state: any) => {
+  return {
+    ui: state.ui,
+  };
+})(App);

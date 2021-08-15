@@ -18,32 +18,26 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import localeFile from './locale.json';
 let localizedStrings = new LocalizedStrings(localeFile);
 
+// 20200613 JustCode: Redux implementation
+import { connect } from 'react-redux';
+import * as uiActions from '../../redux/actions/uiActions';
+
 interface ISettingProps {
-  lang: any;
-  updateAppLanguage: any;
   navigation: any;
+  dispatch: any;
+  ui: any;
 }
 
-interface ISettingState {
-  lang: any;
-}
-
-class Setting extends React.Component<ISettingProps, ISettingState> {
-  constructor(props: ISettingProps) {
-    super(props);
-
-    this.state = {
-      lang: this.props.lang,
-    };
-  }
-
+class Setting extends React.Component<ISettingProps> {
   updateLanguage(lang: string) {
-    this.setState({ lang: lang });
-    this.props.updateAppLanguage && this.props.updateAppLanguage(lang);
+    // 20200613 JustCode: Redux implementation
+    this.props.dispatch(uiActions.setLanguage(lang));
   }
 
   render() {
-    localizedStrings.setLanguage(this.state.lang);
+    // 20200613 JustCode: Redux implementation
+    localizedStrings.setLanguage(this.props.ui.get('lang'));
+
     return (
       <>
         <SafeAreaView style={commonStyles.content}>
@@ -158,7 +152,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default (props: ISettingProps) => {
+// 20200613 JustCode: Redux implementation
+const ReduxSetting = connect((state: any) => {
+  return {
+    ui: state.ui,
+  };
+})(Setting);
+
+export default (props: any) => {
   const navigation = useNavigation();
-  return <Setting {...props} navigation={navigation} />;
+  return (
+    // 20200613 JustCode: Redux implementation
+    // Change Setting to ReduxSetting
+    <ReduxSetting {...props} navigation={navigation} />
+  );
 };

@@ -27,24 +27,20 @@ import LocalizedStrings from 'react-native-localization';
 import localeFile from './locale.json';
 let localizedStrings = new LocalizedStrings(localeFile);
 
+// 20200613 JustCode: Redux implementation
+import { connect } from 'react-redux';
+import * as pageActions from '../../redux/actions/pageActions';
+
 interface IFavDetailProps {
   navigation: any;
   route: any;
   lang: string;
+  dispatch?: any;
+  ui?: any;
+  page?: any;
 }
 
-interface IFavDetailState {
-  errorMsg: string;
-  loading: boolean;
-  definition: any;
-}
-
-class FavDetail extends React.Component<IFavDetailProps, IFavDetailState> {
-  constructor(props: IFavDetailProps) {
-    super(props);
-    this.state = { errorMsg: '', loading: false, definition: null };
-  }
-
+class FavDetail extends React.Component<IFavDetailProps> {
   componentDidMount() {
     if (Helper.isNotNullAndUndefined(this.props, ['route', 'params', 'word'])) {
       this.getDefinition(this.props.route.params.word);
@@ -53,47 +49,55 @@ class FavDetail extends React.Component<IFavDetailProps, IFavDetailState> {
 
   async getDefinition(word: string) {
     try {
-      this.setState({ loading: true });
+      // 20200613 JustCode: Redux implementation
+      this.props.dispatch(pageActions.pageFavDetailSetLoading(true));
 
       if (word.length > 0) {
         let wordDefinition = await Api.getDefinition(word);
         if (wordDefinition.success) {
-          this.setState({
-            errorMsg: '',
-            loading: false,
-            definition: wordDefinition.payload,
-          });
-          console.log('Word Definition: ', wordDefinition.payload);
+          // 20200613 JustCode: Redux implementation
+          this.props.dispatch(
+            pageActions.pageFavDetailSetState({
+              errorMsg: '',
+              loading: false,
+              definition: wordDefinition.payload,
+            })
+          );
         } else {
-          // 20200529 JustCode - Change the hard coded string to localized string
-          this.setState({
-            errorMsg:
-              localizedStrings.Error.OxfordIssue + wordDefinition.message,
-            loading: false,
-            definition: null,
-          });
+          // 20200613 JustCode: Redux implementation
+          this.props.dispatch(
+            pageActions.pageFavDetailSetState({
+              errorMsg:
+                localizedStrings.Error.OxfordIssue + wordDefinition.message,
+              loading: false,
+              definition: null,
+            })
+          );
         }
       } else {
-        // 20200529 JustCode - Change the hard coded string to localized string
-        this.setState({
-          errorMsg: localizedStrings.Error.InvalidWord,
-          loading: false,
-          definition: null,
-        });
+        // 20200613 JustCode: Redux implementation
+        this.props.dispatch(
+          pageActions.pageFavDetailSetState({
+            errorMsg: localizedStrings.Error.InvalidWord,
+            loading: false,
+            definition: null,
+          })
+        );
       }
     } catch (error) {
-      console.log('Error: ', error);
-      this.setState({
-        loading: false,
-        errorMsg: error.message,
-        definition: null,
-      });
+      // 20200613 JustCode: Redux implementation
+      this.props.dispatch(
+        pageActions.pageFavDetailSetState({
+          errorMsg: error.message,
+          loading: false,
+          definition: null,
+        })
+      );
     }
   }
 
   render() {
-    // 20200529 JustCode: Set the language pass in via props
-    localizedStrings.setLanguage(this.props.lang);
+    localizedStrings.setLanguage(this.props.ui.get('lang'));
 
     return (
       <>
@@ -113,29 +117,50 @@ class FavDetail extends React.Component<IFavDetailProps, IFavDetailState> {
 
             <View style={{ minHeight: 10, maxHeight: 10 }}></View>
 
-            {this.state.errorMsg.length > 0 && (
-              <Text style={commonStyles.errMsg}>{this.state.errorMsg}</Text>
-            )}
+            {
+              // 20200613 JustCode: Redux implementation
+              this.props.page.get('favDetail').get('errorMsg').length > 0 && (
+                <Text style={commonStyles.errMsg}>
+                  {this.props.page.get('favDetail').get('errorMsg')}
+                </Text>
+              )
+            }
 
-            {/* Display word definition as custom component */}
-            <WordDefinition def={this.state.definition} hideFav={true} />
+            {/* Display word definition as custom component
+                 20200613 JustCode: Redux implementation
+             */}
+            <WordDefinition
+              def={this.props.page.get('favDetail').get('definition')}
+              hideFav={true}
+            />
           </ScrollView>
         </SafeAreaView>
-        {this.state.loading && (
-          <ActivityIndicator
-            style={commonStyles.loading}
-            size="large"
-            color={'#219bd9'}
-          />
-        )}
+        {
+          // 20200613 JustCode: Redux implementation
+          this.props.page.get('favDetail').get('loading') && (
+            <ActivityIndicator
+              style={commonStyles.loading}
+              size="large"
+              color={'#219bd9'}
+            />
+          )
+        }
       </>
     );
   }
 }
 
+// 20200613 JustCode: Redux implementation
+const ReduxFavDetail = connect<any, any, any>((state: any) => {
+  return {
+    ui: state.ui,
+    page: state.page,
+  };
+})(FavDetail);
+
 export default function (props: IFavDetailProps) {
   const navigation = useNavigation();
   const route = useRoute();
 
-  return <FavDetail {...props} navigation={navigation} route={route} />;
+  return <ReduxFavDetail {...props} navigation={navigation} route={route} />;
 }

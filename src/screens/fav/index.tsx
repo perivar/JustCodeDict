@@ -33,48 +33,26 @@ import LocalizedStrings from 'react-native-localization';
 import localeFile from './locale.json';
 let localizedStrings = new LocalizedStrings(localeFile);
 
+// 20200613 JustCode: Redux implementation
+import { connect } from 'react-redux';
+import * as pageActions from '../../redux/actions/pageActions';
+
 interface IFavProps {
   isFocused: boolean;
   navigation: any;
   lang: string;
+  dispatch: any;
+  ui: any;
+  page: any;
 }
 
-interface IFavState {
-  favList: any;
-  errorMsg: string;
-  loading: boolean;
-  loaded: boolean;
-}
-
-class Fav extends React.Component<IFavProps, IFavState> {
-  constructor(props: IFavProps) {
-    super(props);
-    this.state = { favList: [], errorMsg: '', loading: true, loaded: false };
-  }
-
+class Fav extends React.Component<IFavProps> {
   componentDidMount() {
     this.loadFavList();
   }
 
   loadFavList() {
-    Helper.getFavList('')
-      .then((result: any) => {
-        console.log('Helper.getFavList: ', result);
-        this.setState({
-          favList: result,
-          errorMsg: '',
-          loading: false,
-          loaded: true,
-        });
-      })
-      .catch((err: any) => {
-        this.setState({
-          favList: [],
-          errorMsg: err,
-          loading: false,
-          loaded: false,
-        });
-      });
+    this.props.dispatch(pageActions.pageFavLoadList());
   }
 
   componentDidUpdate(prevProps: IFavProps) {
@@ -87,8 +65,7 @@ class Fav extends React.Component<IFavProps, IFavState> {
   }
 
   render() {
-    // 20200529 JustCode: Set the language pass in via props
-    localizedStrings.setLanguage(this.props.lang);
+    localizedStrings.setLanguage(this.props.ui.get('lang'));
 
     return (
       <>
@@ -106,7 +83,8 @@ class Fav extends React.Component<IFavProps, IFavState> {
           </View>
 
           <SwipeListView
-            data={this.state.favList}
+            // 20200613 JustCode: Redux implementation
+            data={this.props.page.get('fav').get('favList')}
             keyExtractor={(item: any) => item.word}
             renderItem={data => (
               <TouchableHighlight
@@ -160,7 +138,12 @@ class Fav extends React.Component<IFavProps, IFavState> {
             )}
             ListEmptyComponent={() => (
               <View style={styles.rowEmpty}>
-                {this.state.loaded && <Text>{localizedStrings.NoListing}</Text>}
+                {
+                  // 20200613 JustCode: Redux implementation
+                  this.props.page.get('fav').get('loaded') && (
+                    <Text>{localizedStrings.NoListing}</Text>
+                  )
+                }
               </View>
             )}
             leftOpenValue={0}
@@ -168,13 +151,16 @@ class Fav extends React.Component<IFavProps, IFavState> {
           />
         </SafeAreaView>
 
-        {this.state.loading && (
-          <ActivityIndicator
-            style={commonStyles.loading}
-            size="large"
-            color={'#219bd9'}
-          />
-        )}
+        {
+          // 20200613 JustCode: Redux implementation
+          this.props.page.get('fav').get('loading') && (
+            <ActivityIndicator
+              style={commonStyles.loading}
+              size="large"
+              color={'#219bd9'}
+            />
+          )
+        }
       </>
     );
   }
@@ -241,6 +227,14 @@ const styles = StyleSheet.create({
   },
 });
 
+// 20200613 JustCode: Redux implementation
+const ReduxFav = connect<any, any, any>((state: any) => {
+  return {
+    ui: state.ui,
+    page: state.page,
+  };
+})(Fav);
+
 const Stack = createStackNavigator();
 
 export default function (props: IFavProps) {
@@ -251,15 +245,11 @@ export default function (props: IFavProps) {
       <Stack.Screen
         name="Fav"
         options={{ title: 'Word List', headerShown: false }}>
-        {/* 20200529 JustCode - Pass the lang props to the child element */}
         {stackProps => (
-          <Fav {...stackProps} lang={props.lang} isFocused={isFocused} />
+          <ReduxFav {...stackProps} lang={props.lang} isFocused={isFocused} />
         )}
       </Stack.Screen>
-      <Stack.Screen
-        name="FavDetail"
-        options={{ title: 'Word Definition', headerShown: false }}>
-        {/* 20200529 JustCode - Pass the lang props to the child element */}
+      <Stack.Screen name="FavDetail" options={{ title: 'Word Definition' }}>
         {stackProps => <FavDetail {...stackProps} lang={props.lang} />}
       </Stack.Screen>
     </Stack.Navigator>
