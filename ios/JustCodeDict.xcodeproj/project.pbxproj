@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00A39534581C81193AB0C8A8 /* libPods-JustCodeDict.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B65B68A35486285147AA17A /* libPods-JustCodeDict.a */; };
 		00E356F31AD99517003FC87E /* JustCodeDictTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* JustCodeDictTests.m */; };
-		06D26787344CE285597BC2BF /* libPods-JustCodeDict-JustCodeDictTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6E0ADDBC7C0050A318C045 /* libPods-JustCodeDict-JustCodeDictTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3238E27026CC65F000B47DB0 /* ForceBridgingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3238E26F26CC65F000B47DB0 /* ForceBridgingHeader.swift */; };
 		32452B3126C1D17500DB14E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32452B3026C1D17500DB14E8 /* GoogleService-Info.plist */; };
+		809ADDE10BC260535C790999 /* libPods-JustCodeDict-JustCodeDictTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15D80BC47736FDB4DB1A5B93 /* libPods-JustCodeDict-JustCodeDictTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		C60082DFF9A179804259A68B /* libPods-JustCodeDict.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47EA41D382F1E296F519AC22 /* libPods-JustCodeDict.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,15 +38,17 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = JustCodeDict/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = JustCodeDict/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = JustCodeDict/main.m; sourceTree = "<group>"; };
-		31868773983F368B5FD8FCF4 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig"; path = "Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig"; sourceTree = "<group>"; };
+		15D80BC47736FDB4DB1A5B93 /* libPods-JustCodeDict-JustCodeDictTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JustCodeDict-JustCodeDictTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3238E26F26CC65F000B47DB0 /* ForceBridgingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForceBridgingHeader.swift; path = JustCodeDict/ForceBridgingHeader.swift; sourceTree = "<group>"; };
 		32452B3026C1D17500DB14E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		42E6CBF78471C95548DE2FE6 /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict-JustCodeDictTests.release.xcconfig"; path = "Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests.release.xcconfig"; sourceTree = "<group>"; };
-		4B65B68A35486285147AA17A /* libPods-JustCodeDict.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JustCodeDict.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		655559FD28EB8BD579354C23 /* Pods-JustCodeDict.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict.debug.xcconfig"; path = "Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict.debug.xcconfig"; sourceTree = "<group>"; };
+		32920EF826CC6420004B89B9 /* JustCodeDict-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JustCodeDict-Bridging-Header.h"; sourceTree = "<group>"; };
+		3768FAC1D6CF5BB85804875E /* Pods-JustCodeDict.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict.release.xcconfig"; path = "Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict.release.xcconfig"; sourceTree = "<group>"; };
+		47EA41D382F1E296F519AC22 /* libPods-JustCodeDict.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JustCodeDict.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		584A5DF49C80757A90A835CC /* Pods-JustCodeDict.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict.debug.xcconfig"; path = "Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = JustCodeDict/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		AE385BBAE350B11EF61F52C2 /* Pods-JustCodeDict.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict.release.xcconfig"; path = "Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict.release.xcconfig"; sourceTree = "<group>"; };
+		8C2AAD4EF00FB8E5D1F2AA51 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig"; path = "Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig"; sourceTree = "<group>"; };
+		90996B123B1AD14BB5A32A8C /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JustCodeDict-JustCodeDictTests.release.xcconfig"; path = "Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		ED6E0ADDBC7C0050A318C045 /* libPods-JustCodeDict-JustCodeDictTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JustCodeDict-JustCodeDictTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06D26787344CE285597BC2BF /* libPods-JustCodeDict-JustCodeDictTests.a in Frameworks */,
+				809ADDE10BC260535C790999 /* libPods-JustCodeDict-JustCodeDictTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00A39534581C81193AB0C8A8 /* libPods-JustCodeDict.a in Frameworks */,
+				C60082DFF9A179804259A68B /* libPods-JustCodeDict.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +98,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				32920EF826CC6420004B89B9 /* JustCodeDict-Bridging-Header.h */,
+				3238E26F26CC65F000B47DB0 /* ForceBridgingHeader.swift */,
 			);
 			name = JustCodeDict;
 			sourceTree = "<group>";
@@ -102,10 +107,10 @@
 		1F1CFFDC9C3F4D3EF7473A08 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				655559FD28EB8BD579354C23 /* Pods-JustCodeDict.debug.xcconfig */,
-				AE385BBAE350B11EF61F52C2 /* Pods-JustCodeDict.release.xcconfig */,
-				31868773983F368B5FD8FCF4 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */,
-				42E6CBF78471C95548DE2FE6 /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */,
+				584A5DF49C80757A90A835CC /* Pods-JustCodeDict.debug.xcconfig */,
+				3768FAC1D6CF5BB85804875E /* Pods-JustCodeDict.release.xcconfig */,
+				8C2AAD4EF00FB8E5D1F2AA51 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */,
+				90996B123B1AD14BB5A32A8C /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -114,8 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				4B65B68A35486285147AA17A /* libPods-JustCodeDict.a */,
-				ED6E0ADDBC7C0050A318C045 /* libPods-JustCodeDict-JustCodeDictTests.a */,
+				47EA41D382F1E296F519AC22 /* libPods-JustCodeDict.a */,
+				15D80BC47736FDB4DB1A5B93 /* libPods-JustCodeDict-JustCodeDictTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -166,12 +171,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "JustCodeDictTests" */;
 			buildPhases = (
-				3DC5ADF201E55A160F232094 /* [CP] Check Pods Manifest.lock */,
+				4ED329AF20A30F16A49D7D01 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				0BEC533C452D2FC63BD499B7 /* [CP] Embed Pods Frameworks */,
-				C36AC3844B528C219472942C /* [CP] Copy Pods Resources */,
+				DC70D49704DE14EDCAF5E5E9 /* [CP] Embed Pods Frameworks */,
+				756D84C4E0D5FAEB70633CC4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -187,14 +192,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "JustCodeDict" */;
 			buildPhases = (
-				1ED9B28CF16482996C9EB9D1 /* [CP] Check Pods Manifest.lock */,
+				851250ED83FBDFBBD5CC0D73 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				A630C5DA42E78D4ADE7F9CB3 /* [CP] Embed Pods Frameworks */,
-				B5AB7441905AD66CFFAD0CC6 /* [CP] Copy Pods Resources */,
+				2E5DA49C78AD5A1DFC3FD59B /* [CP] Embed Pods Frameworks */,
+				B12E12EDE2238E487C8EDB56 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -218,7 +223,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1250;
 					};
 				};
 			};
@@ -276,46 +281,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		0BEC533C452D2FC63BD499B7 /* [CP] Embed Pods Frameworks */ = {
+		2E5DA49C78AD5A1DFC3FD59B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1ED9B28CF16482996C9EB9D1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-JustCodeDict-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3DC5ADF201E55A160F232094 /* [CP] Check Pods Manifest.lock */ = {
+		4ED329AF20A30F16A49D7D01 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -337,24 +320,46 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A630C5DA42E78D4ADE7F9CB3 /* [CP] Embed Pods Frameworks */ = {
+		756D84C4E0D5FAEB70633CC4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B5AB7441905AD66CFFAD0CC6 /* [CP] Copy Pods Resources */ = {
+		851250ED83FBDFBBD5CC0D73 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JustCodeDict-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B12E12EDE2238E487C8EDB56 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -371,21 +376,21 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict/Pods-JustCodeDict-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C36AC3844B528C219472942C /* [CP] Copy Pods Resources */ = {
+		DC70D49704DE14EDCAF5E5E9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JustCodeDict-JustCodeDictTests/Pods-JustCodeDict-JustCodeDictTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -422,6 +427,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3238E27026CC65F000B47DB0 /* ForceBridgingHeader.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -440,8 +446,9 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31868773983F368B5FD8FCF4 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */;
+			baseConfigurationReference = 8C2AAD4EF00FB8E5D1F2AA51 /* Pods-JustCodeDict-JustCodeDictTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -467,8 +474,9 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42E6CBF78471C95548DE2FE6 /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */;
+			baseConfigurationReference = 90996B123B1AD14BB5A32A8C /* Pods-JustCodeDict-JustCodeDictTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = JustCodeDictTests/Info.plist;
@@ -491,7 +499,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 655559FD28EB8BD579354C23 /* Pods-JustCodeDict.debug.xcconfig */;
+			baseConfigurationReference = 584A5DF49C80757A90A835CC /* Pods-JustCodeDict.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -509,6 +517,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = JustCodeDict;
+				SWIFT_OBJC_BRIDGING_HEADER = "JustCodeDict-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -517,7 +526,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AE385BBAE350B11EF61F52C2 /* Pods-JustCodeDict.release.xcconfig */;
+			baseConfigurationReference = 3768FAC1D6CF5BB85804875E /* Pods-JustCodeDict.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -534,6 +543,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = JustCodeDict;
+				SWIFT_OBJC_BRIDGING_HEADER = "JustCodeDict-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

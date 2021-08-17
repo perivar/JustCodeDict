@@ -14,7 +14,7 @@ interface ILemma {
 }
 
 export default class Api {
-  static apiRequest(methodName: string, method = 'GET', body = null) {
+  static apiRequest(methodName: string, method = 'GET', body: any = null) {
     if (baseURL.length > 0) {
       // If requestURL is specified, then use it else use the serverURL
       let apiURL = baseURL;

@@ -40,17 +40,19 @@ import LocalizedStrings from 'react-native-localization';
 import localeFile from './locale.json';
 let localizedStrings = new LocalizedStrings(localeFile);
 
-// 20200613 JustCode: Redux implementation
-import { connect } from 'react-redux';
-import * as uiActions from './src/redux/actions/uiActions';
+// 20210817 JustCode: Redux Toolkit implementation
+import { connector, PropsFromRedux } from './src/redux/store/connector';
+import {
+  setLanguage,
+  setProfilePhoto,
+  showCamera,
+} from './src/redux/slices/ui';
+
+type Props = PropsFromRedux;
 
 const Drawer = createDrawerNavigator();
-// 20200613 JustCode: Redux implementation, connect TabNav to Redux
-const DrawerNav = connect<any, any, any>((state: any) => {
-  return {
-    ui: state.ui,
-  };
-})(props => {
+
+const DrawerNav = (props: Props) => {
   return (
     <Drawer.Navigator
       initialRouteName="TabNav"
@@ -60,7 +62,7 @@ const DrawerNav = connect<any, any, any>((state: any) => {
       {/* 20200529 JustCode: Change the hardcoded string to the localized string */}
       <Drawer.Screen
         name="TabNav"
-        component={TabNav}
+        component={TabNavRedux}
         options={{
           title: localizedStrings.DrawerNav.Screens.Home,
           headerShown: false,
@@ -76,7 +78,10 @@ const DrawerNav = connect<any, any, any>((state: any) => {
       />
     </Drawer.Navigator>
   );
-});
+};
+
+// 20210817 JustCode: Redux Toolkit implementation, connect TabNav to Redux
+const DrawerNavRedux = connector(DrawerNav);
 
 const DrawerContent = (props: any) => {
   return (
@@ -84,13 +89,13 @@ const DrawerContent = (props: any) => {
       <View style={commonStyles.drawerHeader}>
         <View style={{ width: 100, alignSelf: 'center' }}>
           <Image
-            source={props.ui.get('profilePhoto')}
+            source={props.ui.profilePhoto}
             style={commonStyles.drawerProfilePhoto}
           />
           <TouchableOpacity
             style={commonStyles.profileCamera}
             onPress={() => {
-              props.dispatch(uiActions.showCamera(!props.ui.get('showCamera')));
+              props.dispatch(showCamera(!props.ui.showCamera));
             }}>
             <Icon name="ios-camera" size={50} color="#22222288" />
           </TouchableOpacity>
@@ -108,12 +113,8 @@ const DrawerContent = (props: any) => {
 };
 
 const Tab = createBottomTabNavigator();
-// 20200613 JustCode: Redux implementation, connect TabNav to Redux
-const TabNav = connect((state: any) => {
-  return {
-    ui: state.ui,
-  };
-})((props: any) => {
+
+const TabNav = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -155,24 +156,22 @@ const TabNav = connect((state: any) => {
       />
     </Tab.Navigator>
   );
-});
+};
 
-interface IAppProps {
-  dispatch: any;
-  ui: any;
-}
+// 20210817 JustCode: Redux Toolkit implementation, connect TabNav to Redux
+const TabNavRedux = connector(TabNav);
 
-class App extends React.Component<IAppProps> {
+class App extends React.Component<Props> {
   // 20200502 JustCode
   // Create a new constructor to check if there is any profile photo or not.
   componentDidMount() {
     // 20200529 JustCode - Get the user language setting from storage
     Helper.getDeviceLanguageFromStorage()
       .then(lang => {
-        this.props.dispatch(uiActions.setLanguage(lang));
+        this.props.dispatch(setLanguage(lang));
       })
       .catch(_ => {
-        this.props.dispatch(uiActions.setLanguage('en'));
+        this.props.dispatch(setLanguage('en'));
       });
 
     // Check if there is any profile photo or not.
@@ -185,7 +184,7 @@ class App extends React.Component<IAppProps> {
             .then(buffer => {
               console.log('File read.');
               this.props.dispatch(
-                uiActions.setProfilePhoto({
+                setProfilePhoto({
                   uri: 'data:image/png;base64,' + buffer,
                 })
               );
@@ -201,7 +200,7 @@ class App extends React.Component<IAppProps> {
   }
 
   saveProfilePhoto(data: any) {
-    this.props.dispatch(uiActions.showCamera(false));
+    this.props.dispatch(showCamera(false));
 
     let path = RNFS.DocumentDirectoryPath + '/profilePic.png';
 
@@ -214,7 +213,7 @@ class App extends React.Component<IAppProps> {
         // Update the profilePhoto state so that the profile photo will update
         // to the latest photo
         this.props.dispatch(
-          uiActions.setProfilePhoto({
+          setProfilePhoto({
             uri: 'data:image/png;base64,' + imgData,
           })
         );
@@ -225,13 +224,13 @@ class App extends React.Component<IAppProps> {
   }
 
   render() {
-    localizedStrings.setLanguage(this.props.ui.get('lang'));
+    localizedStrings.setLanguage(this.props.ui.lang);
 
     return (
       <NavigationContainer>
         <StatusBar barStyle="default" backgroundColor="#219bd9" />
-        <DrawerNav {...this.props} />
-        {this.props.ui.get('showCamera') && (
+        <DrawerNavRedux {...this.props} />
+        {this.props.ui.showCamera && (
           <Camera
             cameraType={Constants.Type.front}
             flashMode={Constants.FlashMode.off}
@@ -242,9 +241,7 @@ class App extends React.Component<IAppProps> {
             imageWidth={800}
             onCapture={(data: any) => this.saveProfilePhoto(data)}
             onClose={() => {
-              this.props.dispatch(
-                uiActions.showCamera(!this.props.ui.get('showCamera'))
-              );
+              this.props.dispatch(showCamera(!this.props.ui.showCamera));
             }}
           />
         )}
@@ -254,8 +251,4 @@ class App extends React.Component<IAppProps> {
 }
 
 // Connect App to Redux state
-export default connect((state: any) => {
-  return {
-    ui: state.ui,
-  };
-})(App);
+export default connector(App);

@@ -24,14 +24,12 @@ import LocalizedStrings from 'react-native-localization';
 import localeFile from './locale.json';
 let localizedStrings = new LocalizedStrings(localeFile);
 
-// 20200613 JustCode: Redux implementation
-import { connect } from 'react-redux';
+// 20210817 JustCode: Redux Toolkit implementation
+import { connector, PropsFromRedux } from '../../redux/store/connector';
 
-interface IProfileProps {
+type IProfileProps = PropsFromRedux & {
   navigation: any;
-  lang: string;
-  ui: any;
-}
+};
 
 interface IProfileState {
   updatedOn: number;
@@ -41,7 +39,7 @@ class Profile extends React.Component<IProfileProps, IProfileState> {
   state = { updatedOn: 0 };
 
   render() {
-    localizedStrings.setLanguage(this.props.ui.get('lang'));
+    localizedStrings.setLanguage(this.props.ui.lang);
 
     return (
       <>
@@ -107,14 +105,11 @@ const styles = StyleSheet.create({
   },
 });
 
-// 20200613 JustCode: Redux implementation
-const ReduxProfile = connect((state: any) => {
-  return {
-    ui: state.ui,
-  };
-})(Profile);
+// 20210817 JustCode: Redux Toolkit implementation
+const ReduxProfile = connector(Profile);
 
 export default (props: IProfileProps) => {
   const navigation = useNavigation();
+
   return <ReduxProfile {...props} navigation={navigation} />;
 };

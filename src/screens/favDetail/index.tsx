@@ -27,20 +27,20 @@ import LocalizedStrings from 'react-native-localization';
 import localeFile from './locale.json';
 let localizedStrings = new LocalizedStrings(localeFile);
 
-// 20200613 JustCode: Redux implementation
-import { connect } from 'react-redux';
-import * as pageActions from '../../redux/actions/pageActions';
+// 20210817 JustCode: Redux Toolkit implementation
+import { connector, PropsFromRedux } from '../../redux/store/connector';
+import {
+  pageFavDetailSetLoading,
+  pageFavDetailSetState,
+} from '../../redux/slices/page';
 
-interface IFavDetailProps {
+type FavDetailProps = PropsFromRedux & {
   navigation: any;
   route: any;
   lang: string;
-  dispatch?: any;
-  ui?: any;
-  page?: any;
-}
+};
 
-class FavDetail extends React.Component<IFavDetailProps> {
+class FavDetail extends React.Component<FavDetailProps> {
   componentDidMount() {
     if (Helper.isNotNullAndUndefined(this.props, ['route', 'params', 'word'])) {
       this.getDefinition(this.props.route.params.word);
@@ -49,24 +49,24 @@ class FavDetail extends React.Component<IFavDetailProps> {
 
   async getDefinition(word: string) {
     try {
-      // 20200613 JustCode: Redux implementation
-      this.props.dispatch(pageActions.pageFavDetailSetLoading(true));
+      // 20210817 JustCode: Redux Toolkit implementation
+      this.props.dispatch(pageFavDetailSetLoading(true));
 
       if (word.length > 0) {
         let wordDefinition = await Api.getDefinition(word);
         if (wordDefinition.success) {
-          // 20200613 JustCode: Redux implementation
+          // 20210817 JustCode: Redux Toolkit implementation
           this.props.dispatch(
-            pageActions.pageFavDetailSetState({
+            pageFavDetailSetState({
               errorMsg: '',
               loading: false,
               definition: wordDefinition.payload,
             })
           );
         } else {
-          // 20200613 JustCode: Redux implementation
+          // 20210817 JustCode: Redux Toolkit implementation
           this.props.dispatch(
-            pageActions.pageFavDetailSetState({
+            pageFavDetailSetState({
               errorMsg:
                 localizedStrings.Error.OxfordIssue + wordDefinition.message,
               loading: false,
@@ -75,9 +75,9 @@ class FavDetail extends React.Component<IFavDetailProps> {
           );
         }
       } else {
-        // 20200613 JustCode: Redux implementation
+        // 20210817 JustCode: Redux Toolkit implementation
         this.props.dispatch(
-          pageActions.pageFavDetailSetState({
+          pageFavDetailSetState({
             errorMsg: localizedStrings.Error.InvalidWord,
             loading: false,
             definition: null,
@@ -85,9 +85,9 @@ class FavDetail extends React.Component<IFavDetailProps> {
         );
       }
     } catch (error) {
-      // 20200613 JustCode: Redux implementation
+      // 20210817 JustCode: Redux Toolkit implementation
       this.props.dispatch(
-        pageActions.pageFavDetailSetState({
+        pageFavDetailSetState({
           errorMsg: error.message,
           loading: false,
           definition: null,
@@ -97,7 +97,7 @@ class FavDetail extends React.Component<IFavDetailProps> {
   }
 
   render() {
-    localizedStrings.setLanguage(this.props.ui.get('lang'));
+    localizedStrings.setLanguage(this.props.ui.lang);
 
     return (
       <>
@@ -118,26 +118,26 @@ class FavDetail extends React.Component<IFavDetailProps> {
             <View style={{ minHeight: 10, maxHeight: 10 }}></View>
 
             {
-              // 20200613 JustCode: Redux implementation
-              this.props.page.get('favDetail').get('errorMsg').length > 0 && (
+              // 20210817 JustCode: Redux Toolkit implementation
+              this.props.page.favDetail.errorMsg.length > 0 && (
                 <Text style={commonStyles.errMsg}>
-                  {this.props.page.get('favDetail').get('errorMsg')}
+                  {this.props.page.favDetail.errorMsg}
                 </Text>
               )
             }
 
             {/* Display word definition as custom component
-                 20200613 JustCode: Redux implementation
+                 20210817 JustCode: Redux Toolkit implementation
              */}
             <WordDefinition
-              def={this.props.page.get('favDetail').get('definition')}
+              def={this.props.page.favDetail.definition}
               hideFav={true}
             />
           </ScrollView>
         </SafeAreaView>
         {
-          // 20200613 JustCode: Redux implementation
-          this.props.page.get('favDetail').get('loading') && (
+          // 20210817 JustCode: Redux Toolkit implementation
+          this.props.page.fav.loading && (
             <ActivityIndicator
               style={commonStyles.loading}
               size="large"
@@ -150,15 +150,10 @@ class FavDetail extends React.Component<IFavDetailProps> {
   }
 }
 
-// 20200613 JustCode: Redux implementation
-const ReduxFavDetail = connect<any, any, any>((state: any) => {
-  return {
-    ui: state.ui,
-    page: state.page,
-  };
-})(FavDetail);
+// 20210817 JustCode: Redux Toolkit implementation
+const ReduxFavDetail = connector(FavDetail);
 
-export default function (props: IFavDetailProps) {
+export default function (props: FavDetailProps) {
   const navigation = useNavigation();
   const route = useRoute();
 

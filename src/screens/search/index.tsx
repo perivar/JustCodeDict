@@ -37,41 +37,39 @@ import LocalizedStrings from 'react-native-localization';
 import localeFile from './locale.json';
 let localizedStrings = new LocalizedStrings(localeFile);
 
-// 20200613 JustCode: Redux implementation
-import { connect } from 'react-redux';
-import * as pageActions from '../../redux/actions/pageActions';
+// 20210817 JustCode: Redux Toolkit implementation
+import { connector, PropsFromRedux } from '../../redux/store/connector';
+import {
+  pageSearchSetError,
+  pageSearchSetLoading,
+  pageSearchSetState,
+  pageSearchSetUserWord,
+  pageSearchShowCamera,
+} from '../../redux/slices/page';
 
-interface ISearchProps {
+type ISearchProps = PropsFromRedux & {
   navigation: any;
-  lang: any;
-  dispatch: any;
-  ui: any;
-  page: any;
-}
+};
 
 class Search extends React.Component<ISearchProps> {
   onUserWordChange(text: string) {
-    // 20200613 JustCode: Redux implementation
-    this.props.dispatch(pageActions.pageSearchSetUserWord(text));
+    // 20210817 JustCode: Redux Toolkit implementation
+    this.props.dispatch(pageSearchSetUserWord(text));
   }
 
   async onSearch() {
-    // 20200613 JustCode: Redux implementation
-    if (this.props.page.get('search').get('userWord').length <= 0) {
-      this.props.dispatch(
-        pageActions.pageSearchSetError(localizedStrings.Error.EmptyWord)
-      );
+    // 20210817 JustCode: Redux Toolkit implementation
+    if (this.props.page.search.userWord.length <= 0) {
+      this.props.dispatch(pageSearchSetError(localizedStrings.Error.EmptyWord));
       return;
     }
 
     try {
-      // 20200613 JustCode: Redux implementation
-      this.props.dispatch(pageActions.pageSearchSetLoading(true));
+      // 20210817 JustCode: Redux Toolkit implementation
+      this.props.dispatch(pageSearchSetLoading(true));
 
-      // 20200613 JustCode: Redux implementation
-      let lemmas = await Api.getLemmas(
-        this.props.page.get('search').get('userWord')
-      );
+      // 20210817 JustCode: Redux Toolkit implementation
+      let lemmas = await Api.getLemmas(this.props.page.search.userWord);
 
       console.log('Lemmas: ', lemmas);
       if (lemmas.success) {
@@ -94,7 +92,7 @@ class Search extends React.Component<ISearchProps> {
           let wordDefinition = await Api.getDefinition(headWord);
           if (wordDefinition.success) {
             this.props.dispatch(
-              pageActions.pageSearchSetState({
+              pageSearchSetState({
                 errorMsg: '',
                 loading: false,
                 definition: wordDefinition.payload,
@@ -102,7 +100,7 @@ class Search extends React.Component<ISearchProps> {
             );
           } else {
             this.props.dispatch(
-              pageActions.pageSearchSetState({
+              pageSearchSetState({
                 errorMsg:
                   localizedStrings.Error.OxfordIssue + wordDefinition.message,
                 loading: false,
@@ -112,7 +110,7 @@ class Search extends React.Component<ISearchProps> {
           }
         } else {
           this.props.dispatch(
-            pageActions.pageSearchSetState({
+            pageSearchSetState({
               errorMsg: localizedStrings.Error.InvalidWord,
               loading: false,
               definition: null,
@@ -121,7 +119,7 @@ class Search extends React.Component<ISearchProps> {
         }
       } else {
         this.props.dispatch(
-          pageActions.pageSearchSetState({
+          pageSearchSetState({
             errorMsg: localizedStrings.Error.OxfordIssue + lemmas.message,
             loading: false,
             definition: null,
@@ -131,7 +129,7 @@ class Search extends React.Component<ISearchProps> {
     } catch (error) {
       console.log('Error: ', error);
       this.props.dispatch(
-        pageActions.pageSearchSetState({
+        pageSearchSetState({
           loading: false,
           errorMsg: error.message,
           definition: null,
@@ -143,10 +141,10 @@ class Search extends React.Component<ISearchProps> {
   // 20200502 JustCode:
   // Receive the recognizedText from the Camera module
   onOCRCapture(recognizedText: string) {
-    this.props.dispatch(pageActions.pageSearchShowCamera(false));
+    this.props.dispatch(pageSearchShowCamera(false));
 
     this.props.dispatch(
-      pageActions.pageSearchSetState({
+      pageSearchSetState({
         showWordList: Helper.isNotNullAndUndefined(recognizedText),
         recognizedText: recognizedText,
       })
@@ -157,7 +155,7 @@ class Search extends React.Component<ISearchProps> {
   // Receive the word selected by the user via WordSelector component
   onWordSelected(word: string) {
     this.props.dispatch(
-      pageActions.pageSearchSetState({
+      pageSearchSetState({
         showWordList: false,
         userWord: word,
       })
@@ -171,7 +169,7 @@ class Search extends React.Component<ISearchProps> {
   }
 
   render() {
-    localizedStrings.setLanguage(this.props.ui.get('lang'));
+    localizedStrings.setLanguage(this.props.ui.lang);
 
     return (
       <>
@@ -205,13 +203,13 @@ class Search extends React.Component<ISearchProps> {
                 onChangeText={text => this.onUserWordChange(text)}
                 // 20200529 JustCode - Change the hard coded string to localized string
                 placeholder={localizedStrings.PlaceHolder}
-                value={this.props.page.get('search').get('userWord')}
+                value={this.props.page.search.userWord}
               />
               <TouchableOpacity
                 style={styles.searchCamera}
                 onPress={() => {
-                  // 20200613 JustCode: Redux implementation
-                  this.props.dispatch(pageActions.pageSearchShowCamera(true));
+                  // 20210817 JustCode: Redux Toolkit implementation
+                  this.props.dispatch(pageSearchShowCamera(true));
                 }}>
                 <Icon name="ios-camera" size={25} color="#22222288" />
               </TouchableOpacity>
@@ -226,26 +224,24 @@ class Search extends React.Component<ISearchProps> {
             />
 
             {
-              // 20200613 JustCode: Redux implementation
-              this.props.page.get('search').get('errorMsg').length > 0 && (
+              // 20210817 JustCode: Redux Toolkit implementation
+              this.props.page.search.errorMsg.length > 0 && (
                 <Text style={commonStyles.errMsg}>
-                  {this.props.page.get('search').get('errorMsg')}
+                  {this.props.page.search.errorMsg}
                 </Text>
               )
             }
 
             {/*
                Display word definition as custom component
-               // 20200613 JustCode: Redux implementation
+               // 20210817 JustCode: Redux Toolkit implementation
              */}
-            <WordDefinition
-              def={this.props.page.get('search').get('definition')}
-            />
+            <WordDefinition def={this.props.page.search.definition} />
           </ScrollView>
         </SafeAreaView>
         {
-          // 20200613 JustCode: Redux implementation
-          this.props.page.get('search').get('showCamera') && (
+          // 20210817 JustCode: Redux Toolkit implementation
+          this.props.page.search.showCamera && (
             <Camera
               cameraType={Constants.Type.back}
               flashMode={Constants.FlashMode.off}
@@ -259,24 +255,24 @@ class Search extends React.Component<ISearchProps> {
                 this.onOCRCapture(recognizedText)
               }
               onClose={() => {
-                // 20200613 JustCode: Redux implementation
-                this.props.dispatch(pageActions.pageSearchShowCamera(false));
+                // 20210817 JustCode: Redux Toolkit implementation
+                this.props.dispatch(pageSearchShowCamera(false));
               }}
             />
           )
         }
         {
-          // 20200613 JustCode: Redux implementation
-          this.props.page.get('search').get('showWordList') && (
+          // 20210817 JustCode: Redux Toolkit implementation
+          this.props.page.search.showWordList && (
             <WordSelector
-              wordBlock={this.props.page.get('search').get('recognizedText')}
+              wordBlock={this.props.page.search.recognizedText}
               onWordSelected={(word: any) => this.onWordSelected(word)}
             />
           )
         }
         {
-          // 20200613 JustCode: Redux implementation
-          this.props.page.get('search').get('loading') && (
+          // 20210817 JustCode: Redux Toolkit implementation
+          this.props.page.search.loading && (
             <ActivityIndicator
               style={commonStyles.loading}
               size="large"
@@ -289,18 +285,14 @@ class Search extends React.Component<ISearchProps> {
   }
 }
 
-// 20200613 JustCode: Redux implementation
-const ReduxSearch = connect((state: any) => {
-  return {
-    ui: state.ui,
-    page: state.page,
-  };
-})(Search);
+// 20210817 JustCode: Redux Toolkit implementation
+const ReduxSearch = connector(Search);
 
 export default (props: ISearchProps) => {
   const navigation = useNavigation();
+
   return (
-    // 20200613 JustCode: Redux implementation
+    // 20210817 JustCode: Redux Toolkit implementation
     // Change Search to ReduxSearch
     <ReduxSearch {...props} navigation={navigation} />
   );

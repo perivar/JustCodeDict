@@ -33,29 +33,26 @@ import LocalizedStrings from 'react-native-localization';
 import localeFile from './locale.json';
 let localizedStrings = new LocalizedStrings(localeFile);
 
-// 20200613 JustCode: Redux implementation
-import { connect } from 'react-redux';
-import * as pageActions from '../../redux/actions/pageActions';
+// 20210817 JustCode: Redux Toolkit implementation
+import { connector, PropsFromRedux } from '../../redux/store/connector';
+import { pageFavLoadList } from '../../redux/slices/page';
 
-interface IFavProps {
-  isFocused: boolean;
+type FavProps = PropsFromRedux & {
   navigation: any;
+  isFocused: boolean;
   lang: string;
-  dispatch: any;
-  ui: any;
-  page: any;
-}
+};
 
-class Fav extends React.Component<IFavProps> {
+class Fav extends React.Component<FavProps> {
   componentDidMount() {
     this.loadFavList();
   }
 
   loadFavList() {
-    this.props.dispatch(pageActions.pageFavLoadList());
+    this.props.dispatch(pageFavLoadList());
   }
 
-  componentDidUpdate(prevProps: IFavProps) {
+  componentDidUpdate(prevProps: FavProps) {
     // Detect if the user switch the tab navigator to "My Fav",
     // If yes reload the data again in case user add in new word.
     if (!prevProps.isFocused && this.props.isFocused) {
@@ -65,7 +62,7 @@ class Fav extends React.Component<IFavProps> {
   }
 
   render() {
-    localizedStrings.setLanguage(this.props.ui.get('lang'));
+    localizedStrings.setLanguage(this.props.ui.lang);
 
     return (
       <>
@@ -83,9 +80,9 @@ class Fav extends React.Component<IFavProps> {
           </View>
 
           <SwipeListView
-            // 20200613 JustCode: Redux implementation
-            data={this.props.page.get('fav').get('favList')}
-            keyExtractor={(item: any) => item.word}
+            // 20210817 JustCode: Redux Toolkit implementation
+            data={this.props.page.fav.favList}
+            keyExtractor={item => item.word}
             renderItem={data => (
               <TouchableHighlight
                 style={styles.rowFront}
@@ -139,8 +136,8 @@ class Fav extends React.Component<IFavProps> {
             ListEmptyComponent={() => (
               <View style={styles.rowEmpty}>
                 {
-                  // 20200613 JustCode: Redux implementation
-                  this.props.page.get('fav').get('loaded') && (
+                  // 20210817 JustCode: Redux Toolkit implementation
+                  this.props.page.fav.loaded && (
                     <Text>{localizedStrings.NoListing}</Text>
                   )
                 }
@@ -152,8 +149,8 @@ class Fav extends React.Component<IFavProps> {
         </SafeAreaView>
 
         {
-          // 20200613 JustCode: Redux implementation
-          this.props.page.get('fav').get('loading') && (
+          // 20210817 JustCode: Redux Toolkit implementation
+          this.props.page.fav.loading && (
             <ActivityIndicator
               style={commonStyles.loading}
               size="large"
@@ -171,23 +168,23 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     backgroundColor: '#eaeaea',
-    // alignItems: 'stretch',
+    alignItems: 'stretch',
     justifyContent: 'center',
     marginBottom: StyleSheet.hairlineWidth,
     height: 50,
     padding: 6,
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   rowFront: {
     flex: 1,
     flexDirection: 'row',
     backgroundColor: '#eaeaea',
-    // alignItems: 'stretch',
+    alignItems: 'stretch',
     justifyContent: 'space-between',
     marginBottom: 1,
     height: 70,
     padding: 6,
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   rowBack: {
     flex: 1,
@@ -227,17 +224,12 @@ const styles = StyleSheet.create({
   },
 });
 
-// 20200613 JustCode: Redux implementation
-const ReduxFav = connect<any, any, any>((state: any) => {
-  return {
-    ui: state.ui,
-    page: state.page,
-  };
-})(Fav);
+// 20210817 JustCode: Redux Toolkit implementation
+const ReduxFav = connector(Fav);
 
 const Stack = createStackNavigator();
 
-export default function (props: IFavProps) {
+export default function (props: FavProps) {
   const isFocused = useIsFocused();
 
   return (
@@ -249,8 +241,12 @@ export default function (props: IFavProps) {
           <ReduxFav {...stackProps} lang={props.lang} isFocused={isFocused} />
         )}
       </Stack.Screen>
-      <Stack.Screen name="FavDetail" options={{ title: 'Word Definition' }}>
-        {stackProps => <FavDetail {...stackProps} lang={props.lang} />}
+      <Stack.Screen
+        name="FavDetail"
+        options={{ title: 'Word Definition', headerShown: false }}>
+        {stackProps => (
+          <FavDetail {...stackProps} {...props} lang={props.lang} />
+        )}
       </Stack.Screen>
     </Stack.Navigator>
   );

@@ -1,11 +1,35 @@
-import { applyMiddleware, createStore } from 'redux';
-import { createLogger } from 'redux-logger';
-import thunk from 'redux-thunk';
-import promise from 'redux-promise-middleware';
-import reducer from '../reducers';
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
-const middleware = __DEV__
-  ? applyMiddleware(promise, thunk, createLogger())
-  : applyMiddleware(promise, thunk);
+import logger from 'redux-logger';
 
-export default createStore(reducer, middleware);
+import rootReducer from '../slices';
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware => {
+    const middlewares = getDefaultMiddleware().concat(logger);
+
+    if (__DEV__ && !process.env.JEST_WORKER_ID) {
+      const createDebugger = require('redux-flipper').default;
+      middlewares.push(createDebugger());
+    }
+
+    return middlewares;
+  },
+});
+
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+
+// Define a reusable AppThunk type once, in your store file, and then use that type whenever you write a thunk:
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string> // TODO: use AnyAction instead?
+>;
+
+export default store;
