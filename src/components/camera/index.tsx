@@ -7,8 +7,15 @@ import {
   ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import PropTypes from 'prop-types';
-import { RNCamera } from 'react-native-camera';
+// import PropTypes from 'prop-types';
+import {
+  AutoFocus,
+  CameraType,
+  CustomWhiteBalance,
+  FlashMode,
+  RNCamera,
+  WhiteBalance,
+} from 'react-native-camera';
 
 // 20200529 JustCode: Import the LocalizedStrings module and the locale text file
 import LocalizedStrings from 'react-native-localization';
@@ -20,13 +27,13 @@ export const Constants = {
 };
 
 interface ICameraProps {
-  cameraType: any;
-  flashMode: any;
-  autoFocus: any;
-  whiteBalance: any;
-  ratio: any;
-  quality: any;
-  imageWidth: any;
+  cameraType: keyof CameraType;
+  flashMode: keyof FlashMode;
+  autoFocus: keyof AutoFocus;
+  whiteBalance: keyof WhiteBalance | CustomWhiteBalance;
+  ratio: string;
+  quality: number;
+  imageWidth: number;
   style: any;
   onCapture: any;
   enabledOCR: any;
@@ -35,8 +42,8 @@ interface ICameraProps {
 }
 
 interface ICameraState {
-  cameraType: any;
-  flashMode: any;
+  cameraType: keyof CameraType;
+  flashMode: keyof FlashMode;
   recognizedText: any;
 }
 
@@ -44,20 +51,20 @@ export default class Camera extends React.Component<
   ICameraProps,
   ICameraState
 > {
-  static propTypes: ICameraProps = {
-    cameraType: PropTypes.any,
-    flashMode: PropTypes.any,
-    autoFocus: PropTypes.any,
-    whiteBalance: PropTypes.any,
-    ratio: PropTypes.string,
-    quality: PropTypes.number,
-    imageWidth: PropTypes.number,
-    style: PropTypes.object,
-    onCapture: PropTypes.func,
-    enabledOCR: PropTypes.bool,
-    onClose: PropTypes.func,
-    lang: PropTypes.string, // 20200529 JustCode - Add in lang props
-  };
+  // static propTypes: ICameraProps = {
+  //   cameraType: PropTypes.any,
+  //   flashMode: PropTypes.any,
+  //   autoFocus: PropTypes.any,
+  //   whiteBalance: PropTypes.any,
+  //   ratio: PropTypes.string,
+  //   quality: PropTypes.number,
+  //   imageWidth: PropTypes.number,
+  //   style: PropTypes.object,
+  //   onCapture: PropTypes.func,
+  //   enabledOCR: PropTypes.bool,
+  //   onClose: PropTypes.func,
+  //   lang: PropTypes.string, // 20200529 JustCode - Add in lang props
+  // };
 
   static defaultProps: ICameraProps = {
     cameraType: Constants.Type.back,
